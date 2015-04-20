@@ -4,7 +4,7 @@
     "keywords": ["log", "logging", "logger", "handler"],
     "type": "library",
     "license": "BSD-3-Clause",
-    "homepage": "http://php5.laurent-laville.org/monolog/",
+    "homepage": "http://php5.laurent-laville.org/callbackfilterhandler/",
     "support": {
         "source": "https://github.com/llaville/monolog-callbackfilterhandler",
         "issues": "https://github.com/llaville/monolog-callbackfilterhandler/issues"

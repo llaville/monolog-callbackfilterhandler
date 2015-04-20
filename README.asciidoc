@@ -3,8 +3,8 @@
 == Installation
 
 This handler what is not yet part of standard Monolog distribution, is available
-on Packagist ([bartlett/monolog-callbackfilterhandler](http://packagist.org/packages/bartlett/monolog-callbackfilterhandler))
-and as such installable via [Composer](http://getcomposer.org/).
+on Packagist http://packagist.org/packages/bartlett/monolog-callbackfilterhandler[bartlett/monolog-callbackfilterhandler]
+and as such installable via http://getcomposer.org/[Composer].
 
 [source, bash]
 ----

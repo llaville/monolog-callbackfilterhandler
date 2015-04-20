@@ -1,7 +1,7 @@
 <?php
 /**
  * This basic example will :
- * - log all events to a file called "monologTestListener.log"
+ * - log all events to a file called "my_logger.log"
  * - notify only (fake) error that have a 'exception' contextual data by mail
  * - WARNING: for demo, the NativeMailerHandler was replaced by a StreamHandler
  *
@@ -37,7 +37,7 @@ $filters = array(
 );
 
 // Create some handlers
-$stream = new RotatingFileHandler(__DIR__ . DIRECTORY_SEPARATOR . 'monologTestListener.log');
+$stream = new RotatingFileHandler(__DIR__ . DIRECTORY_SEPARATOR . 'my_logger.log');
 $stream->setFilenameFormat('{filename}-{date}', 'Ymd');
 
 //$mailer = new NativeMailerHandler('user@example.org', 'dear user', 'receiver@example.org');

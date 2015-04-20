@@ -7,9 +7,11 @@ use Monolog\Handler\TestHandler as BaseTestHandler;
 
 /**
  * Features included in dev-master branch but not yet released as a stable version
- * @see
+ * @see https://github.com/Seldaek/monolog/pull/529
  *
  * And 2 new features not yet proposed
+ * @see hasOnlyRecordsThatContains()
+ * @see hasOnlyRecordsMatching()
  */
 class TestHandler extends BaseTestHandler
 {

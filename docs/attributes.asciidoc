@@ -1,0 +1,20 @@
+:author:      Laurent Laville
+:keywords:    monolog, log, logging, logger, handler
+:mandir:      http://php5.laurent-laville.org/callbackfilterhandler/manual/current
+:brand:       CallbackFilterHandler
+:brandref:    http://php5.laurent-laville.org/callbackfilterhandler/
+:brandver:
+:toc2:
+:toc-placement: right
+:jumbotron:
+:jumbotron-fullwidth:
+:footer:
+:footer-fullwidth:
+:navinfo1:
+:icons!:
+:iconsfont:   font-awesome
+:imagesdir:   ./images
+:idprefix:    _
+:gitbranch:   master
+:rawbaseurl:  https://raw.githubusercontent.com/llaville/monolog-callbackfilterhandler/{gitbranch}
+:gitproject:  https://github.com/llaville/monolog-callbackfilterhandler

@@ -1,0 +1,58 @@
+= Cover
+:description: CallbackFilterHandler Book
+include::attributes.asciidoc[]
+:navbar!:
+:themeswitcher!:
+:jumbotron!:
+:toc!:
+:toc2!:
+:stylesheet:  cover.css
+
+
+== CallbackFilterHandler
+
+[role="cover"]
+--
+[subs="none"]
+++++++++++++++++++++++++++++++++++++++
+<span class="fa-stack">
+    <i class="fa fa-history fa-stack-1x iconsfont-4x" style="bottom: -1.3em; left: 1.1em; color:#375A7F;"></i>
+    <i class="fa fa-files-o iconsfont-9x" style="color:#CECECE;"></i>
+</span>            
+++++++++++++++++++++++++++++++++++++++
+--
+
+[role="bg-info"]
+--
+[big]#The Book#
+--
+[pull-left]#Published with AsciiDoc-Bootstrap backend v4#
+[pull-right]#by Laurent Laville#
+
+unfloat::[]
+
+[role="col-md-6 panels"]
+====
+[panel,primary]
+.Read it online
+--
+* image:icons/font-awesome/files-o.png[alt="multiple html files",icon="files-o",iconsfont="font-awesome"] link:getting-started.html[Multiple HTML files]
+* image:icons/font-awesome/file-o.png[alt="single html file",icon="file-o",iconsfont="font-awesome"] link:callbackfilterhandler-book.html[Single HTML file]
+* image:icons/font-awesome/file-pdf-o.png[alt="pdf file",icon="file",iconsfont="font-awesome"] link:callbackfilterhandler-book.pdf[PDF file]
+* image:icons/font-awesome/book.png[alt="epub file",icon="book",iconsfont="font-awesome"] link:callbackfilterhandler-book.epub[ePub file]
+* image:icons/font-awesome/windows.png[alt="html help file",icon="windows",iconsfont="font-awesome"] [text-danger]*HTML Help file*
+--
+====
+
+[role="col-md-6 panels"]
+====
+[panel,info]
+.Read it offline (download a zip archive)
+--
+* image:icons/font-awesome/files-o.png[alt="multiple html files",icon="files-o",iconsfont="font-awesome"] link:callbackfilterhandler-book.chunked.zip[Multiple HTML files]
+* image:icons/font-awesome/file-o.png[alt="single html file",icon="file-o",iconsfont="font-awesome"] link:callbackfilterhandler-book.xhtml.zip[Single HTML file]
+* image:icons/font-awesome/file-pdf-o.png[alt="pdf file",icon="file",iconsfont="font-awesome"] link:callbackfilterhandler-book.pdf.zip[PDF file]
+* image:icons/font-awesome/book.png[alt="epub file",icon="book",iconsfont="font-awesome"] link:callbackfilterhandler-book.epub.zip[ePub file]
+* image:icons/font-awesome/windows.png[alt="html help file",icon="windows",iconsfont="font-awesome"] link:callbackfilterhandler-book.chm.zip[HTML Help file]
+--
+====

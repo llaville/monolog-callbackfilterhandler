@@ -205,13 +205,12 @@ class CallbackFilterHandlerTest extends TestCase
 
     /**
      * Bad filter configuration.
-     *
-     * @expectedException \RuntimeException
      */
     public function testHandleWithBadFilterThrowsException()
     {
         $filters = array(false);
         $test    = new TestHandler();
+        $this->expectException(\RuntimeException::class);
         $handler = new CallbackFilterHandler($test, $filters);
     }
 }

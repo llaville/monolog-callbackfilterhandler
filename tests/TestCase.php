@@ -4,7 +4,7 @@ namespace Bartlett\Tests\Monolog\Handler;
 
 use Monolog\Logger;
 
-abstract class TestCase extends \PHPUnit_Framework_TestCase
+abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
      * @return array Record

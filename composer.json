@@ -13,6 +13,9 @@
         "php": "^5.3|^7.0",
         "monolog/monolog": "^1.10"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0|^7.0|^8.0|^9.0"
+    },
     "authors": [
         {
             "name": "Laurent Laville",
@@ -30,5 +33,8 @@
         "psr-4": {
             "Bartlett\\Tests\\Monolog\\Handler\\": "tests/"
         }
+    },
+    "scripts": {
+        "tests": "vendor/bin/phpunit"
     }
 }

@@ -10,8 +10,8 @@
         "issues": "https://github.com/llaville/monolog-callbackfilterhandler/issues"
     },
     "require": {
-        "php": ">=5.3.0",
-        "monolog/monolog": "~1.10"
+        "php": "^5.3|^7.0",
+        "monolog/monolog": "^1.10"
     },
     "authors": [
         {

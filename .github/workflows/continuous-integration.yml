@@ -20,7 +20,7 @@ jobs:
                     -
                         os: ubuntu-18.04
                         php: 7.2
-                        tools: phpstan, phpunit
+                        tools: phpstan, phpunit:7.5.20
                     -
                         os: ubuntu-18.04
                         php: 7.3

@@ -1,9 +1,14 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Bartlett\Tests\Monolog\Handler;
+namespace Bartlett\Monolog\Handler\Tests;
 
 use Monolog\Logger;
 use Monolog\Handler\TestHandler as BaseTestHandler;
+
+use function array_key_exists;
+use function array_keys;
+use function count;
+use function strpos;
 
 /**
  * Features included in dev-master branch but not yet released as a stable version
@@ -15,47 +20,47 @@ use Monolog\Handler\TestHandler as BaseTestHandler;
  */
 class TestHandler extends BaseTestHandler
 {
-    public function hasEmergencyThatContains($message)
+    public function hasEmergencyThatContains($message): bool
     {
         return $this->hasRecordThatContains($message, Logger::EMERGENCY);
     }
 
-    public function hasAlertThatContains($message)
+    public function hasAlertThatContains($message): bool
     {
         return $this->hasRecordThatContains($message, Logger::ALERT);
     }
 
-    public function hasCriticalThatContains($message)
+    public function hasCriticalThatContains($message): bool
     {
         return $this->hasRecordThatContains($message, Logger::CRITICAL);
     }
 
-    public function hasErrorThatContains($message)
+    public function hasErrorThatContains($message): bool
     {
         return $this->hasRecordThatContains($message, Logger::ERROR);
     }
 
-    public function hasWarningThatContains($message)
+    public function hasWarningThatContains($message): bool
     {
         return $this->hasRecordThatContains($message, Logger::WARNING);
     }
 
-    public function hasNoticeThatContains($message)
+    public function hasNoticeThatContains($message): bool
     {
         return $this->hasRecordThatContains($message, Logger::NOTICE);
     }
 
-    public function hasInfoThatContains($message)
+    public function hasInfoThatContains($message): bool
     {
         return $this->hasRecordThatContains($message, Logger::INFO);
     }
 
-    public function hasDebugThatContains($message)
+    public function hasDebugThatContains($message): bool
     {
         return $this->hasRecordThatContains($message, Logger::DEBUG);
     }
 
-    public function hasRecordThatContains($message, $level)
+    public function hasRecordThatContains(string $message, $level): bool
     {
         if (!isset($this->recordsByLevel[$level])) {
             return false;
@@ -71,7 +76,7 @@ class TestHandler extends BaseTestHandler
     }
 
     // new feature not yet proposed
-    public function hasOnlyRecordsThatContains($message, $level)
+    public function hasOnlyRecordsThatContains($message, $level): bool
     {
         $levels = array_keys($this->recordsByLevel);
 
@@ -83,7 +88,7 @@ class TestHandler extends BaseTestHandler
     }
 
     // new feature not yet proposed
-    public function hasOnlyRecordsMatching($pattern)
+    public function hasOnlyRecordsMatching($pattern): bool
     {
         foreach ($this->records as $record) {
             foreach (array_keys($pattern) as $key) {

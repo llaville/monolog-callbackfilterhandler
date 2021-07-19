@@ -35,7 +35,7 @@ composer require bartlett/monolog-callbackfilterhandler
 * This handler obey first to basic Monolog rules as `handler level` and `bubble`.
 * Then, in second time, logs are filtered by rules defined in one or more callback functions.
 
-Main difference with https://github.com/Seldaek/monolog/blob/master/src/Monolog/Handler/FilterHandler.php[FilterHandler]
+Main difference with [FilterHandler](https://github.com/Seldaek/monolog/blob/master/src/Monolog/Handler/FilterHandler.php)
 included in standard Monolog distribution since version 1.8.0
 
 * `FilterHandler` can just filter records and only allow those of a given list of levels through to the wrapped handler.
@@ -50,7 +50,7 @@ See [examples/basic.php](https://github.com/llaville/monolog-callbackfilterhandl
 
 * Laurent Laville (Lead Developer)
 * Christophe Coevoet (suggested the code base on discussion of Monolog
-  https://github.com/Seldaek/monolog/pull/411#issuecomment-53413159[PR#411])
+  [PR#411](https://github.com/Seldaek/monolog/pull/411#issuecomment-53413159))
 
 ## License
 

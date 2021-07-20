@@ -6,6 +6,8 @@ using the [Keep a CHANGELOG](http://keepachangelog.com) principles.
 
 ## [Unreleased]
 
+## [2.0.0] - 2021-07-20
+
 New major version to accept only Monolog v2
 
 ## Added
@@ -26,5 +28,6 @@ New major version to accept only Monolog v2
 
 First version of this handler for Monolog v1 that filters records based on a list of callback functions
 
-[unreleased]: https://github.com/llaville/monolog-callbackfilterhandler/compare/1.0.0...HEAD
+[unreleased]: https://github.com/llaville/monolog-callbackfilterhandler/compare/2.0.0...HEAD
+[2.0.0]: https://github.com/llaville/monolog-callbackfilterhandler/compare/1.0.0...2.0.0
 [1.0.0]: https://github.com/llaville/monolog-callbackfilterhandler/compare/...1.0.0

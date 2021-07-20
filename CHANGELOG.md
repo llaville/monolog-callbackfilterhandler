@@ -18,6 +18,8 @@ New major version to accept only Monolog v2
 
 * README page project is now in Markdown format rather than AsciiDoc
 * Directory structure `src/` simplified to follow [PSR-4](https://www.php-fig.org/psr/psr-4/) standard
+* the handler class constructor has now a new argument `$level` the minimum logging level at which this handler will be triggered.
+  Do not consider using anymore the level of `$handler` first argument of class constructor
 * [Allow Monolog 2.x](https://github.com/llaville/monolog-callbackfilterhandler/issues/5)
 
 ## [1.0.0] - 2015-04-21

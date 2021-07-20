@@ -41,7 +41,7 @@ class CallbackFilterHandlerTest extends TestCase
         $filters = [];
         $testlvl = Logger::WARNING;
         $test    = new TestHandler($testlvl);
-        $handler = new CallbackFilterHandler($test, $filters);
+        $handler = new CallbackFilterHandler($test, $filters, $testlvl);
 
         if ($record['level'] >= $testlvl) {
             $this->assertTrue($handler->isHandling($record));
@@ -197,7 +197,7 @@ class CallbackFilterHandlerTest extends TestCase
         $test = new TestHandler();
 
         foreach ([false, true] as $bubble) {
-            $handler = new CallbackFilterHandler($test, $filters, $bubble);
+            $handler = new CallbackFilterHandler($test, $filters, Logger::INFO, $bubble);
 
             if ($record['level'] == Logger::NOTICE && $bubble === false) {
                 $this->assertTrue($handler->handle($record));

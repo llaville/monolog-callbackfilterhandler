@@ -38,7 +38,7 @@ class CallbackFilterHandler extends AbstractHandler implements ProcessableHandle
     /**
      * Handler or factory callable($record, $this)
      *
-     * @var callable|AbstractHandler|HandlerInterface
+     * @var callable|HandlerInterface
      */
     protected $handler;
 
@@ -64,9 +64,10 @@ class CallbackFilterHandler extends AbstractHandler implements ProcessableHandle
     /**
      * @param callable|HandlerInterface $handler Handler or factory callable($record, $this).
      * @param callable[]                $filters A list of filters to apply
+     * @param int|string                $level   The minimum logging level at which this handler will be triggered
      * @param boolean                   $bubble  Whether the messages that are handled can bubble up the stack or not
      */
-    public function __construct($handler, array $filters, bool $bubble = true)
+    public function __construct($handler, array $filters, $level= Logger::DEBUG, bool $bubble = true)
     {
         if (!$handler instanceof HandlerInterface) {
             if (!is_callable($handler)) {
@@ -77,8 +78,8 @@ class CallbackFilterHandler extends AbstractHandler implements ProcessableHandle
             }
         }
 
-        $this->handlerLevel = Logger::DEBUG;
-        parent::__construct($this->handlerLevel, $bubble);
+        $this->handlerLevel = $level;
+        parent::__construct($level, $bubble);
 
         $this->handler = $handler;
         $this->filters = [];
@@ -117,19 +118,14 @@ class CallbackFilterHandler extends AbstractHandler implements ProcessableHandle
      */
     public function isHandling(array $record): bool
     {
-        if ($this->handler instanceof AbstractHandler) {
-            $level = $this->handler->getLevel();
-        } else {
-            $level = $this->handlerLevel;
-        }
-        if ($record['level'] < $level) {
+        if ($record['level'] < $this->handlerLevel) {
             return false;
         }
 
         if (isset($record['message'])) {
             // when record is full filled, try each filter
             foreach ($this->filters as $filter) {
-                if (!call_user_func($filter, $record, $level)) {
+                if (!call_user_func($filter, $record, $this->handlerLevel)) {
                     return false;
                 }
             }

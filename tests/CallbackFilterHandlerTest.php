@@ -1,24 +1,28 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Bartlett\Tests\Monolog\Handler;
+namespace Bartlett\Monolog\Handler\Tests;
 
 use Bartlett\Monolog\Handler\CallbackFilterHandler;
 
 use Monolog\Logger;
-//use Monolog\Handler\TestHandler;
+
+use RuntimeException;
+use function func_get_args;
+use function in_array;
+use function preg_match;
 
 class CallbackFilterHandlerTest extends TestCase
 {
     /**
      * Filter events on standard log level (without restriction).
      *
-     * @covers Bartlett\Monolog\Handler\CallbackFilterHandler::isHandling
+     * @covers CallbackFilterHandler::isHandling
      * @dataProvider provideSuiteRecords
      */
     public function testIsHandling()
     {
         $record  = $this->formatRecord(func_get_args());
-        $filters = array();
+        $filters = [];
         $test    = new TestHandler();
         $handler = new CallbackFilterHandler($test, $filters);
 
@@ -28,16 +32,16 @@ class CallbackFilterHandlerTest extends TestCase
     /**
      * Filter events on standard log level (greater or equal than WARNING).
      *
-     * @covers Bartlett\Monolog\Handler\CallbackFilterHandler::isHandling
+     * @covers CallbackFilterHandler::isHandling
      * @dataProvider provideSuiteRecords
      */
     public function testIsHandlingLevel()
     {
         $record  = $this->formatRecord(func_get_args());
-        $filters = array();
+        $filters = [];
         $testlvl = Logger::WARNING;
         $test    = new TestHandler($testlvl);
-        $handler = new CallbackFilterHandler($test, $filters);
+        $handler = new CallbackFilterHandler($test, $filters, $testlvl);
 
         if ($record['level'] >= $testlvl) {
             $this->assertTrue($handler->isHandling($record));
@@ -49,13 +53,13 @@ class CallbackFilterHandlerTest extends TestCase
     /**
      * Filter events only on levels needed (INFO and NOTICE).
      *
-     * @covers Bartlett\Monolog\Handler\CallbackFilterHandler::handle
+     * @covers CallbackFilterHandler::handle
      * @dataProvider provideSuiteRecords
      */
     public function testHandleProcessOnlyNeededLevels()
     {
         $record  = $this->formatRecord(func_get_args());
-        $filters = array(
+        $filters = [
             function ($record) {
                 if ($record['level'] == Logger::INFO) {
                     return true;
@@ -65,14 +69,14 @@ class CallbackFilterHandlerTest extends TestCase
                 }
                 return false;
             }
-        );
+        ];
         $test    = new TestHandler();
         $handler = new CallbackFilterHandler($test, $filters);
         $handler->handle($record);
 
         $hasMethod = 'has' . ucfirst(strtolower($record['level_name']));
 
-        if (in_array($record['level'], array(Logger::INFO, Logger::NOTICE))) {
+        if (in_array($record['level'], [Logger::INFO, Logger::NOTICE])) {
             $this->assertTrue($test->{$hasMethod}($record, $record['level']));
         } else {
             $this->assertFalse($test->{$hasMethod}($record, $record['level']));
@@ -82,20 +86,20 @@ class CallbackFilterHandlerTest extends TestCase
     /**
      * Filter events that matches all rules defined in filters.
      *
-     * @covers Bartlett\Monolog\Handler\CallbackFilterHandler::handle
+     * @covers CallbackFilterHandler::handle
      * @dataProvider provideSuiteRecords
      */
     public function testHandleProcessAllMatchingRules()
     {
         $record  = $this->formatRecord(func_get_args());
-        $filters = array(
+        $filters = [
             function ($record) {
                 return ($record['level'] == Logger::NOTICE);
             },
             function ($record) {
                 return (preg_match('/^sample of/', $record['message']) === 1);
             }
-        );
+        ];
         $test    = new TestHandler();
         $handler = new CallbackFilterHandler($test, $filters);
         $handler->handle($record);
@@ -110,18 +114,18 @@ class CallbackFilterHandlerTest extends TestCase
     /**
      * Filter events on batch mode.
      *
-     * @covers Bartlett\Monolog\Handler\CallbackFilterHandler::handleBatch
+     * @covers CallbackFilterHandler::handleBatch
      */
     public function testHandleBatch()
     {
-        $filters = array(
+        $filters = [
             function ($record) {
                 return ($record['level'] == Logger::INFO);
             },
             function ($record) {
                 return (preg_match('/information/', $record['message']) === 1);
             }
-        );
+        ];
         $records = $this->getMultipleRecords();
         $test    = new TestHandler();
         $handler = new CallbackFilterHandler($test, $filters);
@@ -131,12 +135,12 @@ class CallbackFilterHandlerTest extends TestCase
     }
 
     /**
-     * @covers Bartlett\Monolog\Handler\CallbackFilterHandler::handle
-     * @covers Bartlett\Monolog\Handler\CallbackFilterHandler::pushProcessor
+     * @covers CallbackFilterHandler::handle
+     * @covers CallbackFilterHandler::pushProcessor
      */
     public function testHandleUsesProcessors()
     {
-        $filters = array(
+        $filters = [
             function ($record) {
                 if ($record['level'] == Logger::DEBUG) {
                     return true;
@@ -146,7 +150,7 @@ class CallbackFilterHandlerTest extends TestCase
                 }
                 return false;
             }
-        );
+        ];
 
         $test    = new TestHandler();
         $handler = new CallbackFilterHandler($test, $filters);
@@ -157,15 +161,15 @@ class CallbackFilterHandlerTest extends TestCase
                 return $record;
             }
         );
-        $handler->handle($this->getRecord(Logger::WARNING));
+        $handler->handle($this->getRecord());
         $handler->handle($this->getRecord(Logger::ERROR));
 
         $this->assertTrue(
             $test->hasOnlyRecordsMatching(
-                array(
-                    'extra' => array('foo' => true),
+                [
+                    'extra' => ['foo' => true],
                     'level' => Logger::WARNING
-                )
+                ]
             )
         );
     }
@@ -173,13 +177,13 @@ class CallbackFilterHandlerTest extends TestCase
     /**
      * Filter events matching bubble feature.
      *
-     * @covers Bartlett\Monolog\Handler\CallbackFilterHandler::handle
+     * @covers CallbackFilterHandler::handle
      * @dataProvider provideSuiteBubbleRecords
      */
     public function testHandleRespectsBubble()
     {
         $record  = $this->formatRecord(func_get_args());
-        $filters = array(
+        $filters = [
             function ($record) {
                 if ($record['level'] == Logger::INFO) {
                     return true;
@@ -189,11 +193,11 @@ class CallbackFilterHandlerTest extends TestCase
                 }
                 return false;
             }
-        );
+        ];
         $test = new TestHandler();
 
-        foreach (array(false, true) as $bubble) {
-            $handler = new CallbackFilterHandler($test, $filters, $bubble);
+        foreach ([false, true] as $bubble) {
+            $handler = new CallbackFilterHandler($test, $filters, Logger::INFO, $bubble);
 
             if ($record['level'] == Logger::NOTICE && $bubble === false) {
                 $this->assertTrue($handler->handle($record));
@@ -208,9 +212,9 @@ class CallbackFilterHandlerTest extends TestCase
      */
     public function testHandleWithBadFilterThrowsException()
     {
-        $filters = array(false);
+        $filters = [false];
         $test    = new TestHandler();
-        $this->expectException(\RuntimeException::class);
-        $handler = new CallbackFilterHandler($test, $filters);
+        $this->expectException(RuntimeException::class);
+        new CallbackFilterHandler($test, $filters);
     }
 }

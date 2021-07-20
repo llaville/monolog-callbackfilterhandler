@@ -3,18 +3,62 @@ name: CI
 on: [ push, pull_request ]
 
 jobs:
-  tests:
+    tests:
+        runs-on: ${{ matrix.os }}
 
-    runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                os:
+                    - ubuntu-18.04
+                php:
+                    - 7.2
+                    - 7.3
+                    - 7.4
+                    - 8.0
+                include:
+                    -
+                        os: ubuntu-18.04
+                        php: 7.2
+                        tools: phpstan, phpunit:7.5.20
+                    -
+                        os: ubuntu-18.04
+                        php: 7.3
+                        tools: phpstan, phpunit
+                    -
+                        os: ubuntu-18.04
+                        php: 7.4
+                        tools: phpstan, phpunit
+                    -
+                        os: ubuntu-18.04
+                        php: 8.0
+                        tools: phpstan, phpunit
 
-    steps:
-    - uses: actions/checkout@v2
+        name: "With PHP ${{ matrix.php }} on ${{ matrix.os }}"
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate
+        steps:
+            -
+                name: Checkout
+                uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
+            -
+                name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php }}
+                    tools: ${{ matrix.tools }}
 
-    - name: Run test suite
-      run: composer run-script tests
+            -
+                name: Install Composer dependencies
+                uses: "ramsey/composer-install@v1"
+                with:
+                    dependency-versions: "highest"
+                    composer-options: "--prefer-dist"
+
+            -
+                name: Static Analysis
+                run: phpstan analyse --ansi
+
+            -
+                name: Run test suite
+                run: phpunit

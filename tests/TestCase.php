@@ -1,39 +1,44 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Bartlett\Tests\Monolog\Handler;
+namespace Bartlett\Monolog\Handler\Tests;
 
 use Monolog\Logger;
+
+use DateTime;
+use function array_combine;
+use function microtime;
+use function sprintf;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
      * @return array Record
      */
-    protected function getRecord($level = Logger::WARNING, $message = 'test', $context = array())
+    protected function getRecord($level = Logger::WARNING, $message = 'test', $context = array()): array
     {
-        return array(
+        return [
             'message' => $message,
             'context' => $context,
             'level' => $level,
             'level_name' => Logger::getLevelName($level),
             'channel' => 'test',
-            'datetime' => \DateTime::createFromFormat('U.u', sprintf('%.6F', microtime(true))),
-            'extra' => array(),
-        );
+            'datetime' => DateTime::createFromFormat('U.u', sprintf('%.6F', microtime(true))),
+            'extra' => [],
+        ];
     }
 
     /**
      * @return array
      */
-    protected function getMultipleRecords()
+    protected function getMultipleRecords(): array
     {
-        return array(
+        return [
             $this->getRecord(Logger::DEBUG, 'debug message 1'),
             $this->getRecord(Logger::DEBUG, 'debug message 2'),
             $this->getRecord(Logger::INFO, 'information'),
             $this->getRecord(Logger::WARNING, 'warning'),
             $this->getRecord(Logger::ERROR, 'error')
-        );
+        ];
     }
 
     /**
@@ -43,10 +48,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      *
      * @return array
      */
-    protected function formatRecord($args)
+    protected function formatRecord(array $args): array
     {
-        $values = $args;
-        $keys   = array(
+        $keys   = [
             'message',
             'context',
             'level',
@@ -54,7 +58,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             'channel',
             'datetime',
             'extra',
-        );
+        ];
         return array_combine($keys, $args);
     }
 
@@ -67,9 +71,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @see CallbackFilterHandlerTest::testHandleProcessOnlyNeededLevels()
      * @see CallbackFilterHandlerTest::testHandleProcessAllMatchingRules()
      */
-    public function provideSuiteRecords()
+    public function provideSuiteRecords(): array
     {
-        $dataset = array();
+        $dataset = [];
 
         foreach (Logger::getLevels() as $level_name => $level_code) {
             $dataset[] = $this->getRecord($level_code, sprintf('sample of %s message', $level_name));
@@ -83,11 +87,11 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @return array
      * @see CallbackFilterHandlerTest::testHandleRespectsBubble()
      */
-    public function provideSuiteBubbleRecords()
+    public function provideSuiteBubbleRecords(): array
     {
-        return array(
+        return [
             $this->getRecord(Logger::NOTICE),
-            $this->getRecord(Logger::WARNING),
-        );
+            $this->getRecord(),
+        ];
     }
 }

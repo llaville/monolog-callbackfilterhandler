@@ -19,7 +19,6 @@ use Monolog\Logger;
 use RuntimeException;
 use function array_shift;
 use function array_unshift;
-use function call_user_func;
 use function is_callable;
 use function json_encode;
 
@@ -125,7 +124,7 @@ class CallbackFilterHandler extends AbstractHandler implements ProcessableHandle
         if (isset($record['message'])) {
             // when record is full filled, try each filter
             foreach ($this->filters as $filter) {
-                if (!call_user_func($filter, $record, $this->handlerLevel)) {
+                if (!$filter($record, $this->handlerLevel)) {
                     return false;
                 }
             }
@@ -144,7 +143,7 @@ class CallbackFilterHandler extends AbstractHandler implements ProcessableHandle
 
         // The same logic as in FingersCrossedHandler
         if (!$this->handler instanceof HandlerInterface) {
-            $this->handler = call_user_func($this->handler, $record, $this);
+            $this->handler = ($this->handler)($record, $this);
             if (!$this->handler instanceof HandlerInterface) {
                 throw new RuntimeException("The factory callable should return a HandlerInterface");
             }
@@ -152,7 +151,7 @@ class CallbackFilterHandler extends AbstractHandler implements ProcessableHandle
 
         if ($this->processors) {
             foreach ($this->processors as $processor) {
-                $record = call_user_func($processor, $record);
+                $record = ($processor)($record);
             }
         }
 

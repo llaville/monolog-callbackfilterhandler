@@ -1,4 +1,6 @@
 parameters:
     level: 6
     paths:
-        - src/
+        - ../../src/
+    bootstrapFiles:
+        - ../../vendor/autoload.php  # required to analyse examples folder

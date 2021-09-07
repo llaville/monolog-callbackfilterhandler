@@ -66,7 +66,7 @@ class CallbackFilterHandler extends AbstractHandler implements ProcessableHandle
      * @param int|string                $level   The minimum logging level at which this handler will be triggered
      * @param boolean                   $bubble  Whether the messages that are handled can bubble up the stack or not
      */
-    public function __construct($handler, array $filters, $level= Logger::DEBUG, bool $bubble = true)
+    public function __construct($handler, array $filters, $level = Logger::DEBUG, bool $bubble = true)
     {
         if (!$handler instanceof HandlerInterface) {
             if (!is_callable($handler)) {
@@ -78,7 +78,7 @@ class CallbackFilterHandler extends AbstractHandler implements ProcessableHandle
         }
 
         $this->handlerLevel = $level;
-        parent::__construct($level, $bubble);
+        parent::__construct($level, $bubble);    // @phpstan-ignore-line
 
         $this->handler = $handler;
         $this->filters = [];

@@ -50,7 +50,6 @@ $logger->error('A fake error has occurred. Will be logged to file BUT NOT notifi
 
 try {
     throw new RuntimeException();
-
 } catch (Exception $e) {
     $logger->critical(
         'A fake error has occurred. Will be logged to file AND notified by mail.',

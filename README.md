@@ -28,7 +28,7 @@ composer require bartlett/monolog-callbackfilterhandler
 
 ## Documentation
 
-- release 1.0.0 is fully documented at http://php5.laurent-laville.org/callbackfilterhandler/
+- release 1.0.0 is fully documented at <http://php5.laurent-laville.org/callbackfilterhandler/>
 
 ## Features
 
@@ -50,7 +50,7 @@ See [examples/basic.php](https://github.com/llaville/monolog-callbackfilterhandl
 
 * Laurent Laville (Lead Developer)
 * Christophe Coevoet (suggested the code base on discussion of Monolog
-  [PR#411](https://github.com/Seldaek/monolog/pull/411#issuecomment-53413159))
+[PR#411](https://github.com/Seldaek/monolog/pull/411#issuecomment-53413159))
 
 ## License
 

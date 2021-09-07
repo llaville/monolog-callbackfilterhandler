@@ -21,13 +21,12 @@ New major version to accept only Monolog v2
 * README page project is now in Markdown format rather than AsciiDoc
 * Directory structure `src/` simplified to follow [PSR-4](https://www.php-fig.org/psr/psr-4/) standard
 * the handler class constructor has now a new argument `$level` the minimum logging level at which this handler will be triggered.
-  Do not consider using anymore the level of `$handler` first argument of class constructor
+Do not consider using anymore the level of `$handler` first argument of class constructor
 * [Allow Monolog 2.x](https://github.com/llaville/monolog-callbackfilterhandler/issues/5)
 
-## [1.0.0] - 2015-04-21
+## 1.0.0 - 2015-04-21
 
 First version of this handler for Monolog v1 that filters records based on a list of callback functions
 
 [unreleased]: https://github.com/llaville/monolog-callbackfilterhandler/compare/2.0.0...HEAD
 [2.0.0]: https://github.com/llaville/monolog-callbackfilterhandler/compare/1.0.0...2.0.0
-[1.0.0]: https://github.com/llaville/monolog-callbackfilterhandler/compare/...1.0.0

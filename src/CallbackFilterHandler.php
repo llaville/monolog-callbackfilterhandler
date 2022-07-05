@@ -113,7 +113,15 @@ class CallbackFilterHandler extends AbstractHandler implements ProcessableHandle
     }
 
     /**
-     * {@inheritdoc}
+     * Checks whether the given record will be handled by this handler.
+     *
+     * This is mostly done for performance reasons, to avoid calling processors for nothing.
+     *
+     * Handlers should still check the record levels within handle(), returning false in isHandling()
+     * is no guarantee that handle() will not be called, and isHandling() might not be called
+     * for a given record.
+     *
+     * @param array<string, mixed> $record Partial log record containing only a level key
      */
     public function isHandling(array $record): bool
     {
@@ -122,7 +130,7 @@ class CallbackFilterHandler extends AbstractHandler implements ProcessableHandle
         }
 
         if (isset($record['message'])) {
-            // when record is full filled, try each filter
+            // when record is fulfilled, try each filter
             foreach ($this->filters as $filter) {
                 if (!$filter($record, $this->handlerLevel)) {
                     return false;

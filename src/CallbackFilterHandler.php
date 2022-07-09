@@ -77,7 +77,7 @@ class CallbackFilterHandler extends AbstractHandler implements ProcessableHandle
             }
         }
 
-        $this->handlerLevel = $level;
+        $this->handlerLevel = Logger::toMonologLevel($level); // @phpstan-ignore-line
         parent::__construct($level, $bubble);    // @phpstan-ignore-line
 
         $this->handler = $handler;
@@ -137,6 +137,7 @@ class CallbackFilterHandler extends AbstractHandler implements ProcessableHandle
                 }
             }
         }
+
         return true;
     }
 

@@ -6,6 +6,7 @@ use Bartlett\Monolog\Handler\CallbackFilterHandler;
 
 use Monolog\Logger;
 
+use Psr\Log\LogLevel;
 use RuntimeException;
 use function func_get_args;
 use function in_array;
@@ -44,6 +45,79 @@ class CallbackFilterHandlerTest extends TestCase
         $handler = new CallbackFilterHandler($test, $filters, $testlvl);
 
         if ($record['level'] >= $testlvl) {
+            $this->assertTrue($handler->isHandling($record));
+        } else {
+            $this->assertFalse($handler->isHandling($record));
+        }
+    }
+
+    /**
+     * Filter events on standard log level (greater or equal than WARNING).
+     *
+     * @covers CallbackFilterHandler::isHandling
+     * @dataProvider provideSuiteRecords
+     */
+    public function testIsHandlingLevelWithLoglevel()
+    {
+        $record  = $this->formatRecord(func_get_args());
+        $filters = [];
+        $testlvl = LogLevel::WARNING;
+        $test    = new TestHandler($testlvl);
+        $handler = new CallbackFilterHandler($test, $filters, $testlvl);
+
+        $levelToCompare = Logger::toMonologLevel($testlvl);
+
+        if ($record['level'] >= $levelToCompare) {
+            $this->assertTrue($handler->isHandling($record));
+        } else {
+            $this->assertFalse($handler->isHandling($record));
+        }
+    }
+
+    /**
+     * Filter events on standard log level (greater or equal than WARNING).
+     *
+     * @covers CallbackFilterHandler::isHandling
+     * @dataProvider provideSuiteRecords
+     */
+    public function testIsHandlingLevelAndCallback()
+    {
+        $record  = $this->formatRecord(func_get_args());
+        $filters = [
+            function ($record) {
+                return in_array($record['level'], [Logger::INFO, Logger::NOTICE], true);
+            }
+        ];
+        $testlvl = Logger::INFO;
+        $test    = new TestHandler($testlvl);
+        $handler = new CallbackFilterHandler($test, $filters, $testlvl);
+
+        if (in_array($record['level'], [Logger::INFO, Logger::NOTICE], true)) {
+            $this->assertTrue($handler->isHandling($record));
+        } else {
+            $this->assertFalse($handler->isHandling($record));
+        }
+    }
+
+    /**
+     * Filter events on standard log level (greater or equal than WARNING).
+     *
+     * @covers CallbackFilterHandler::isHandling
+     * @dataProvider provideSuiteRecords
+     */
+    public function testIsHandlingLevelAndCallbackWithLoglevel()
+    {
+        $record  = $this->formatRecord(func_get_args());
+        $filters = [
+            function ($record) {
+                return in_array($record['level'], [Logger::INFO, Logger::NOTICE], true);
+            }
+        ];
+        $testlvl = LogLevel::INFO;
+        $test    = new TestHandler($testlvl);
+        $handler = new CallbackFilterHandler($test, $filters, $testlvl);
+
+        if (in_array($record['level'], [Logger::INFO, Logger::NOTICE], true)) {
             $this->assertTrue($handler->isHandling($record));
         } else {
             $this->assertFalse($handler->isHandling($record));
@@ -177,6 +251,8 @@ class CallbackFilterHandlerTest extends TestCase
     /**
      * Filter events matching bubble feature.
      *
+     * Note: only the levels notice and warning are tested
+     *
      * @covers CallbackFilterHandler::handle
      * @dataProvider provideSuiteBubbleRecords
      */
@@ -185,19 +261,44 @@ class CallbackFilterHandlerTest extends TestCase
         $record  = $this->formatRecord(func_get_args());
         $filters = [
             function ($record) {
-                if ($record['level'] == Logger::INFO) {
-                    return true;
-                }
-                if ($record['level'] == Logger::NOTICE) {
-                    return true;
-                }
-                return false;
+                return in_array($record['level'], [Logger::INFO, Logger::NOTICE], true);
             }
         ];
-        $test = new TestHandler();
+        $testlvl = Logger::INFO;
+        $test    = new TestHandler($testlvl);
 
         foreach ([false, true] as $bubble) {
-            $handler = new CallbackFilterHandler($test, $filters, Logger::INFO, $bubble);
+            $handler = new CallbackFilterHandler($test, $filters, $testlvl, $bubble);
+
+            if ($record['level'] == Logger::NOTICE && $bubble === false) {
+                $this->assertTrue($handler->handle($record));
+            } else {
+                $this->assertFalse($handler->handle($record));
+            }
+        }
+    }
+
+    /**
+     * Filter events matching bubble feature.
+     *
+     * Note: only the levels notice and warning are tested
+     *
+     * @covers CallbackFilterHandler::handle
+     * @dataProvider provideSuiteBubbleRecords
+     */
+    public function testHandleRespectsBubbleWithLoglevel()
+    {
+        $record  = $this->formatRecord(func_get_args());
+        $filters = [
+            function ($record) {
+                return in_array($record['level'], [Logger::INFO, Logger::NOTICE], true);
+            }
+        ];
+        $testlvl = LogLevel::INFO;
+        $test = new TestHandler($testlvl);
+
+        foreach ([false, true] as $bubble) {
+            $handler = new CallbackFilterHandler($test, $filters, $testlvl, $bubble);
 
             if ($record['level'] == Logger::NOTICE && $bubble === false) {
                 $this->assertTrue($handler->handle($record));

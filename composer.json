@@ -9,14 +9,13 @@
         "issues": "https://github.com/llaville/monolog-callbackfilterhandler/issues"
     },
     "require": {
-        "php": "^7.2|^8.0",
+        "php": "^7.2 || ^8.0",
         "ext-json": "*",
         "monolog/monolog": "^2.0"
     },
     "authors": [
         {
             "name": "Laurent Laville",
-            "email": "pear@laurent-laville.org",
             "homepage": "https://github.com/llaville",
             "role": "Lead"
         }

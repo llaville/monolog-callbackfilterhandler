@@ -32,7 +32,7 @@
     "ext-xml": "*",
     "ext-xmlwriter": "*",
     "mimmi20/coding-standard": "^3.0.20",
-    "phpstan/extension-installer": "^1.1.0",
+    "phpstan/extension-installer": "^1.2.0",
     "phpstan/phpstan": "^1.9.2",
     "phpstan/phpstan-deprecation-rules": "^1.0.0",
     "phpstan/phpstan-phpunit": "^1.2.2",

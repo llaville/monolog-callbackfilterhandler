@@ -1,33 +1,62 @@
 {
-    "name": "bartlett/monolog-callbackfilterhandler",
-    "description": "Monolog handler wrapper that filters records based on a list of callback functions",
-    "keywords": ["log", "logging", "logger", "handler"],
-    "type": "library",
-    "license": "BSD-3-Clause",
-    "support": {
-        "source": "https://github.com/llaville/monolog-callbackfilterhandler",
-        "issues": "https://github.com/llaville/monolog-callbackfilterhandler/issues"
+  "name": "mimmi20/monolog-callbackfilterhandler",
+  "description": "Monolog handler wrapper that filters records based on a list of callback functions",
+  "license": "BSD-3-Clause",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Laurent Laville",
+      "homepage": "https://github.com/llaville"
     },
-    "require": {
-        "php": "^7.2 || ^8.0",
-        "ext-json": "*",
-        "monolog/monolog": "^2.0"
-    },
-    "authors": [
-        {
-            "name": "Laurent Laville",
-            "homepage": "https://github.com/llaville",
-            "role": "Lead"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Bartlett\\Monolog\\Handler\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Bartlett\\Monolog\\Handler\\Tests\\": "tests/"
-        }
+    {
+      "name": "Thomas Müller",
+      "homepage": "https://github.com/mimmi20",
+      "role": "Developer"
     }
+  ],
+  "homepage": "https://github.com/mimmi20/monolog-callbackfilterhandler",
+  "support": {
+    "source": "https://github.com/mimmi20/monolog-callbackfilterhandler",
+    "issues": "https://github.com/mimmi20/monolog-callbackfilterhandler/issues"
+  },
+  "require": {
+    "php": "^8.1",
+    "ext-json": "*",
+    "ext-mbstring": "*",
+    "monolog/monolog": "^3.2.0"
+  },
+  "require-dev": {
+    "ext-dom": "*",
+    "ext-simplexml": "*",
+    "ext-tokenizer": "*",
+    "ext-xml": "*",
+    "ext-xmlwriter": "*",
+    "mimmi20/coding-standard": "^3.0.14",
+    "phpstan/extension-installer": "^1.1.0",
+    "phpstan/phpstan": "^1.8.9",
+    "phpstan/phpstan-deprecation-rules": "^1.0.0",
+    "phpstan/phpstan-phpunit": "^1.1.1",
+    "phpunit/phpunit": "^9.5.25"
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "Mimmi20\\Monolog\\Handler\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Mimmi20\\Monolog\\Handler\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "preferred-install": "dist",
+    "lock": false,
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "phpstan/extension-installer": true
+    }
+  }
 }

@@ -1,73 +1,94 @@
-<?php declare(strict_types=1);
+<?php
+/**
+ * This file is part of the mimmi20/monolog-callbackfilterhandler package.
+ *
+ * Copyright (c) 2022, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2015-2021, Laurent Laville <pear@laurent-laville.org>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-namespace Bartlett\Monolog\Handler\Tests;
+declare(strict_types = 1);
 
-use Monolog\Logger;
+namespace Mimmi20\Monolog\Handler\Tests;
+
 use Monolog\Handler\TestHandler as BaseTestHandler;
+use Monolog\Level;
 
-use function array_key_exists;
 use function array_keys;
 use function count;
-use function strpos;
+use function property_exists;
+use function str_contains;
 
 /**
  * Features included in dev-master branch but not yet released as a stable version
+ *
  * @see https://github.com/Seldaek/monolog/pull/529
  *
  * And 2 new features not yet proposed
  * @see hasOnlyRecordsThatContains()
  * @see hasOnlyRecordsMatching()
  */
-class TestHandler extends BaseTestHandler
+final class TestHandler extends BaseTestHandler
 {
-    public function hasEmergencyThatContains($message): bool
+    /** @throws void */
+    public function hasEmergencyThatContains(string $message): bool
     {
-        return $this->hasRecordThatContains($message, Logger::EMERGENCY);
+        return $this->hasRecordThatContains($message, Level::Emergency);
     }
 
-    public function hasAlertThatContains($message): bool
+    /** @throws void */
+    public function hasAlertThatContains(string $message): bool
     {
-        return $this->hasRecordThatContains($message, Logger::ALERT);
+        return $this->hasRecordThatContains($message, Level::Alert);
     }
 
-    public function hasCriticalThatContains($message): bool
+    /** @throws void */
+    public function hasCriticalThatContains(string $message): bool
     {
-        return $this->hasRecordThatContains($message, Logger::CRITICAL);
+        return $this->hasRecordThatContains($message, Level::Critical);
     }
 
-    public function hasErrorThatContains($message): bool
+    /** @throws void */
+    public function hasErrorThatContains(string $message): bool
     {
-        return $this->hasRecordThatContains($message, Logger::ERROR);
+        return $this->hasRecordThatContains($message, Level::Error);
     }
 
-    public function hasWarningThatContains($message): bool
+    /** @throws void */
+    public function hasWarningThatContains(string $message): bool
     {
-        return $this->hasRecordThatContains($message, Logger::WARNING);
+        return $this->hasRecordThatContains($message, Level::Warning);
     }
 
-    public function hasNoticeThatContains($message): bool
+    /** @throws void */
+    public function hasNoticeThatContains(string $message): bool
     {
-        return $this->hasRecordThatContains($message, Logger::NOTICE);
+        return $this->hasRecordThatContains($message, Level::Notice);
     }
 
-    public function hasInfoThatContains($message): bool
+    /** @throws void */
+    public function hasInfoThatContains(string $message): bool
     {
-        return $this->hasRecordThatContains($message, Logger::INFO);
+        return $this->hasRecordThatContains($message, Level::Info);
     }
 
-    public function hasDebugThatContains($message): bool
+    /** @throws void */
+    public function hasDebugThatContains(string $message): bool
     {
-        return $this->hasRecordThatContains($message, Logger::DEBUG);
+        return $this->hasRecordThatContains($message, Level::Debug);
     }
 
-    public function hasRecordThatContains(string $message, $level): bool
+    /** @throws void */
+    public function hasRecordThatContains(string $message, Level $level): bool
     {
-        if (!isset($this->recordsByLevel[$level])) {
+        if (!isset($this->recordsByLevel[$level->value])) {
             return false;
         }
 
-        foreach ($this->recordsByLevel[$level] as $rec) {
-            if (strpos($rec['message'], $message) !== false) {
+        foreach ($this->recordsByLevel[$level->value] as $rec) {
+            if (str_contains($rec->message, $message)) {
                 return true;
             }
         }
@@ -75,12 +96,16 @@ class TestHandler extends BaseTestHandler
         return false;
     }
 
-    // new feature not yet proposed
-    public function hasOnlyRecordsThatContains($message, $level): bool
+    /**
+     * new feature not yet proposed
+     *
+     * @throws void
+     */
+    public function hasOnlyRecordsThatContains(string $message, Level $level): bool
     {
         $levels = array_keys($this->recordsByLevel);
 
-        if (count($levels) !== 1) {
+        if (1 !== count($levels)) {
             return false;
         }
 
@@ -88,18 +113,28 @@ class TestHandler extends BaseTestHandler
     }
 
     // new feature not yet proposed
-    public function hasOnlyRecordsMatching($pattern): bool
+
+    /**
+     * new feature not yet proposed
+     *
+     * @param array<string, mixed> $pattern
+     *
+     * @throws void
+     */
+    public function hasOnlyRecordsMatching(array $pattern): bool
     {
         foreach ($this->records as $record) {
             foreach (array_keys($pattern) as $key) {
-                if (!array_key_exists($key, $record)) {
+                if (!property_exists($record, $key)) {
                     return false;
                 }
-                if ($record[$key] !== $pattern[$key]) {
+
+                if ($record->{$key} !== $pattern[$key]) {
                     return false;
                 }
             }
         }
+
         return true;
     }
 }

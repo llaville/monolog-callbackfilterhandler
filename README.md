@@ -1,34 +1,29 @@
 # CallbackFilterHandler for Monolog
 
-| Stable |
-|:------:|
-| [![Latest Stable Version](https://img.shields.io/packagist/v/bartlett/monolog-callbackfilterhandler)](https://packagist.org/packages/bartlett/monolog-callbackfilterhandler) |
-| [![Minimum PHP Version)](https://img.shields.io/packagist/php-v/bartlett/monolog-callbackfilterhandler)](https://php.net/) |
-| [![Branch Master](https://img.shields.io/badge/branch-master-blue)](https://github.com/llaville/monolog-callbackfilterhandler) |
-| [![Tests](https://github.com/llaville/php-compatinfo-db/workflows/Tests/badge.svg)](https://github.com/llaville/monolog-callbackfilterhandler/actions) |
+This library is a Fork of [llaville/monolog-callbackfilterhandler](https://github.com/llaville/monolog-callbackfilterhandler) with updates for Monolog 3.
+
+[![Latest Stable Version](https://poser.pugx.org/mimmi20/monolog-callbackfilterhandler/v/stable?format=flat-square)](https://packagist.org/packages/mimmi20/monolog-callbackfilterhandler)
+[![Latest Unstable Version](https://poser.pugx.org/mimmi20/monolog-callbackfilterhandler/v/unstable?format=flat-square)](https://packagist.org/packages/mimmi20/monolog-callbackfilterhandler)
+[![License](https://poser.pugx.org/mimmi20/monolog-callbackfilterhandler/license?format=flat-square)](https://packagist.org/packages/mimmi20/monolog-callbackfilterhandler)
+
+## Code Status
+
+[![codecov](https://codecov.io/gh/mimmi20/monolog-callbackfilterhandler/branch/master/graph/badge.svg)](https://codecov.io/gh/mimmi20/monolog-callbackfilterhandler)
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/mimmi20/monolog-callbackfilterhandler.svg)](http://isitmaintained.com/project/mimmi20/monolog-callbackfilterhandler "Average time to resolve an issue")
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/mimmi20/monolog-callbackfilterhandler.svg)](http://isitmaintained.com/project/mimmi20/monolog-callbackfilterhandler "Percentage of issues still open")
 
 
 ## Requirements
 
-This handler works with PHP 7.2 or above, use release 1.0.0 for PHP 5.3+ support
+This handler works with PHP 8.1 or above
 
 ## Installation
 
-The recommended way to install this library is [through composer](http://getcomposer.org).
-If you don't know yet what is composer, have a look [on introduction](http://getcomposer.org/doc/00-intro.md).
+Run
 
-```bash
-composer require bartlett/monolog-callbackfilterhandler
+```shell
+composer require mimmi20/monolog-callbackfilterhandler
 ```
-
-## Support
-
-- release 1.0.0 is not maintained except for bug report, and will accept only Monolog v1.
-- release 2.0.0 is the current active version, and accept only Monolog v2
-
-## Documentation
-
-- release 1.0.0 is fully documented at <http://php5.laurent-laville.org/callbackfilterhandler/>
 
 ## Features
 
@@ -44,14 +39,8 @@ included in standard Monolog distribution since version 1.8.0
 ## Example
 
 Here is a basic setup to log all events to a file and most important to another one (or notify by mail).
-See [examples/basic.php](https://github.com/llaville/monolog-callbackfilterhandler/blob/master/examples/basic.php) file.
-
-## Authors
-
-* Laurent Laville (Lead Developer)
-* Christophe Coevoet (suggested the code base on discussion of Monolog
-[PR#411](https://github.com/Seldaek/monolog/pull/411#issuecomment-53413159))
+See [examples/basic.php](https://github.com/mimmi20/monolog-callbackfilterhandler/blob/master/examples/basic.php) file.
 
 ## License
 
-This handler is licensed under the BSD-3-clauses License - see the [LICENSE](https://github.com/llaville/monolog-callbackfilterhandler/blob/master/LICENSE) file for details
+This handler is licensed under the BSD-3-clauses License - see the [LICENSE](https://github.com/mimmi20/monolog-callbackfilterhandler/blob/master/LICENSE) file for details

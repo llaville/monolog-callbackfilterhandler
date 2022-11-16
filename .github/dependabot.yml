@@ -1,0 +1,41 @@
+# https://docs.github.com/en/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+
+updates:
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    versioning-strategy: "increase"
+    target-branch: "master"
+    commit-message:
+      include: "scope"
+      prefix: "composer"
+#    ignore:
+#      - dependency-name: "rollbar/rollbar"
+#        versions:
+#          - ">= 3"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "mimmi20"
+    assignees:
+      - "mimmi20"
+    labels:
+      - "dependencies"
+    target-branch: "master"
+    commit-message:
+      include: "scope"
+      prefix: "github-actions"

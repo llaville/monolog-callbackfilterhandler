@@ -12,23 +12,25 @@
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-use Bartlett\Monolog\Handler\CallbackFilterHandler;
+use Mimmi20\Monolog\Handler\CallbackFilterHandler;
 
+use Monolog\Level;
 use Monolog\Logger;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Handler\NativeMailerHandler;
 use Monolog\Handler\StreamHandler;
+use Monolog\LogRecord;
 
 // Create the logger
 $logger = new Logger('my_logger');
 
 // Create filter rules
 $filters = [
-    function ($record) {
-        if (!array_key_exists('exception', $record['context'])) {
+    static function (LogRecord $record): bool {
+        if (!array_key_exists('exception', $record->context)) {
             return false;
         }
-        return (preg_match('/fake error/', $record['message']) === 1);
+        return (preg_match('/fake error/', $record->message) === 1);
     }
 ];
 
@@ -37,7 +39,7 @@ $stream = new RotatingFileHandler(__DIR__ . DIRECTORY_SEPARATOR . 'my_logger.log
 $stream->setFilenameFormat('{filename}-{date}', 'Ymd');
 
 //$mailer = new NativeMailerHandler('user@example.org', 'dear user', 'receiver@example.org');
-$mailer = new StreamHandler(__DIR__ . DIRECTORY_SEPARATOR . 'notifications.log', Logger::ERROR);
+$mailer = new StreamHandler(__DIR__ . DIRECTORY_SEPARATOR . 'notifications.log', Level::Error);
 
 // add handlers to the logger
 $logger->pushHandler($stream);

@@ -31,7 +31,7 @@
     "ext-tokenizer": "*",
     "ext-xml": "*",
     "ext-xmlwriter": "*",
-    "mimmi20/coding-standard": "^3.0.22",
+    "mimmi20/coding-standard": "^3.0.23",
     "phpstan/extension-installer": "^1.2.0",
     "phpstan/phpstan": "^1.9.4",
     "phpstan/phpstan-deprecation-rules": "^1.1.1",

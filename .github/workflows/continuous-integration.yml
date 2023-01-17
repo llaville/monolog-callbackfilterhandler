@@ -110,10 +110,10 @@ jobs:
         uses: "shivammathur/setup-php@2.23.0"
         with:
           php-version: "${{ matrix.php-version }}"
-          extensions: "none, phar, json, opcache, ${{ join(fromJson(needs.ci.outputs.extensions), ', ') }}, ctype, intl"
+          extensions: "none, phar, json, opcache, ${{ join(fromJson(needs.ci.outputs.extensions), ', ') }}, ctype, intl, curl"
           ini-values: "opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0, xdebug.mode=coverage"
           coverage: "xdebug"
-          tools: "composer:v2, infection"
+          tools: "composer:v2"
 
       - name: "Update dependencies with composer"
         uses: "ramsey/composer-install@v2"
@@ -135,4 +135,6 @@ jobs:
           verbose: false
 
       - name: "Run mutation tests with infection/infection"
-        run: "infection --show-mutations --min-covered-msi=100 --min-msi=100 --coverage=.build/coverage --logger-github --no-progress -vv"
+        env:
+          STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+        run: "vendor/bin/infection --show-mutations --only-covered --min-covered-msi=100 --min-msi=100 --coverage=.build/coverage --logger-github --no-progress -vv"

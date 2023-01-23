@@ -31,7 +31,7 @@
     "ext-tokenizer": "*",
     "ext-xml": "*",
     "ext-xmlwriter": "*",
-    "infection/infection": "^0.26.17",
+    "infection/infection": "^0.26.18",
     "mimmi20/coding-standard": "^3.0.26",
     "nikic/php-parser": "^v4.15.3",
     "phpstan/extension-installer": "^1.2.0",

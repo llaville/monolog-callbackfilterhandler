@@ -1,0 +1,31 @@
+name: "automerge"
+
+permissions:
+  pull-requests: write
+  contents: write
+
+on:
+  pull_request_target:
+    types:
+      - "labeled"
+  check_suite:
+    types:
+      - "completed"
+  status: {}
+jobs:
+  approve:
+    uses: "mimmi20/template/.github/workflows/auto-approve.yml@master"
+
+    if: ${{ github.actor == 'dependabot[bot]' }}
+
+    with:
+      pullRequestNumber: "${{ github.event.pull_request.number }}"
+    secrets:
+      envPAT: "${{ secrets.GITHUB_TOKEN }}"
+  automerge:
+    needs: "approve"
+
+    uses: "mimmi20/template/.github/workflows/auto-merge.yml@master"
+
+    secrets:
+      envPAT: "${{ secrets.GITHUB_TOKEN }}"

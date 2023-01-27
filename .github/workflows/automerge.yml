@@ -4,7 +4,9 @@ permissions:
   pull-requests: write
   contents: write
 
-on: pull_request_target
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
 
 jobs:
   approve:
@@ -24,7 +26,6 @@ jobs:
 
     with:
       pullRequestUrl: "${{ github.event.pull_request.html_url }}"
-      pullRequestEmail: "mimmi20@live.de"
 
     secrets:
       envPAT: "${{ secrets.GITHUB_TOKEN }}"

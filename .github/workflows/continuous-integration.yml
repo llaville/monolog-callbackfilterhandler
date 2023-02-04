@@ -19,7 +19,7 @@ jobs:
 
     uses: "mimmi20/template/.github/workflows/ci.yml@master"
     with:
-      extensions: ""
+      extensions: "dom, iconv, intl, mbstring, simplexml, tokenizer, xml, xmlwriter"
       ini-values: "opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0"
       composer-options: "--optimize-autoloader --prefer-dist --prefer-stable -v"
       composer-outdated-option: ""
@@ -43,7 +43,9 @@ jobs:
           - "ubuntu-20.04"
           - "ubuntu-22.04"
 
-        php-version: ${{ fromJson(needs.ci.outputs.version) }}
+        php-version:
+          - "8.1"
+          - "8.2"
 
         dependencies:
           - "highest"
@@ -59,16 +61,16 @@ jobs:
           persist-credentials: false
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@2.23.0"
+        uses: "shivammathur/setup-php@2.24.0"
         with:
           php-version: "${{ matrix.php-version }}"
-          extensions: "none, phar, json, opcache, ${{ join(fromJson(needs.ci.outputs.extensions), ', ') }}"
+          extensions: "none, phar, json, opcache, dom, iconv, intl, mbstring, simplexml, tokenizer, xml, xmlwriter"
           ini-values: "opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0"
           coverage: "none"
           tools: "composer:v2"
 
       - name: "Update dependencies with composer"
-        uses: "ramsey/composer-install@v2"
+        uses: "ramsey/composer-install@2.2.0"
         with:
           dependency-versions: "${{ matrix.dependencies }}"
           composer-options: "--optimize-autoloader --prefer-dist --prefer-stable -v"
@@ -79,9 +81,7 @@ jobs:
   code-coverage:
     name: "Code Coverage with PHPUnit"
 
-    needs:
-      - "ci"
-      - "tests"
+    needs: "tests"
 
     runs-on: "${{ matrix.operating-system }}"
     timeout-minutes: 10
@@ -95,7 +95,9 @@ jobs:
           - "ubuntu-20.04"
           - "ubuntu-22.04"
 
-        php-version: ${{ fromJson(needs.ci.outputs.version) }}
+        php-version:
+          - "8.1"
+          - "8.2"
 
         dependencies:
           - "highest"
@@ -111,16 +113,16 @@ jobs:
           persist-credentials: false
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@2.23.0"
+        uses: "shivammathur/setup-php@2.24.0"
         with:
           php-version: "${{ matrix.php-version }}"
-          extensions: "none, phar, json, opcache, ${{ join(fromJson(needs.ci.outputs.extensions), ', ') }}, ctype, intl, curl"
+          extensions: "none, phar, json, opcache, ctype, curl, dom, iconv, intl, mbstring, simplexml, tokenizer, xml, xmlwriter"
           ini-values: "opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0, xdebug.mode=coverage"
           coverage: "xdebug"
           tools: "composer:v2"
 
       - name: "Update dependencies with composer"
-        uses: "ramsey/composer-install@v2"
+        uses: "ramsey/composer-install@2.2.0"
         with:
           dependency-versions: "${{ matrix.dependencies }}"
           composer-options: "--optimize-autoloader --prefer-dist --prefer-stable -v"
@@ -142,3 +144,26 @@ jobs:
         env:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
         run: "vendor/bin/infection --show-mutations --only-covered --min-covered-msi=100 --min-msi=100 --coverage=.build/coverage --logger-github --no-progress -vv"
+
+  # This is a meta job to avoid to have to constantly change the protection rules
+  # whenever we touch the matrix.
+  tests-status:
+    name: "Unit & Integration Tests Status"
+
+    runs-on: "ubuntu-22.04"
+
+    if: always()
+
+    needs:
+      - "ci"
+      - "tests"
+      - "code-coverage"
+
+    steps:
+      - name: Successful run
+        if: ${{ !(contains(needs.*.result, 'failure')) }}
+        run: exit 0
+
+      - name: Failing run
+        if: ${{ contains(needs.*.result, 'failure') }}
+        run: exit 1

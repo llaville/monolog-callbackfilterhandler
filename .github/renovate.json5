@@ -18,13 +18,12 @@
   "commitBodyTable": true,
   "enabledManagers": ["composer", "github-actions", "npm"],
   "lockFileMaintenance": {"enabled": true, "extends": ["schedule:daily"]},
-  "platformAutomerge": true,
-  "rangeStrategy": "replace",
+  "platformAutomerge": false,
+  "rangeStrategy": "bump",
   "rollbackPrs": true,
   "schedule": ["before 3am"],
   "updateLockFiles": true,
   "packageRules": [
-    {"matchDepTypes": ["require"], "rangeStrategy": "widen"},
     {"matchPackagePatterns": ["^mimmi20/"], "groupSlug": "mimmi20", "groupName": "mimmi20 packages"},
     {
       "matchPackageNames": ["php"],
@@ -35,7 +34,6 @@
     }
   ],
   "vulnerabilityAlerts": {
-    "extends": [":automergeDisabled", ":automergePr"],
-    "rangeStrategy": "bump"
+    "extends": [":automergeDisabled", ":automergePr"]
   }
 }

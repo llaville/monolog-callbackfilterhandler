@@ -51,6 +51,10 @@ jobs:
           - "highest"
           - "lowest"
 
+        ts:
+          - "ts"
+          - "nts"
+
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v3"
@@ -68,6 +72,10 @@ jobs:
           ini-values: "opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0"
           coverage: "none"
           tools: "composer:v2"
+        env:
+          fail-fast: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          phpts: "${{ matrix.ts }}"
 
       - name: "Update dependencies with composer"
         uses: "ramsey/composer-install@2.2.0"
@@ -120,6 +128,10 @@ jobs:
           ini-values: "opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0, xdebug.mode=coverage"
           coverage: "xdebug"
           tools: "composer:v2"
+        env:
+          fail-fast: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          phpts: "ts"
 
       - name: "Update dependencies with composer"
         uses: "ramsey/composer-install@2.2.0"
@@ -131,7 +143,7 @@ jobs:
         run: "mkdir -p .build/coverage"
 
       - name: "Collect code coverage with Xdebug and phpunit/phpunit"
-        run: "vendor/bin/phpunit -c phpunit.xml --verbose --coverage-clover=.build/coverage/clover.xml --coverage-text --coverage-xml=.build/coverage/coverage-xml --log-junit=.build/coverage/phpunit.junit.xml"
+        run: "vendor/bin/phpunit -c phpunit.xml --coverage-clover=.build/coverage/clover.xml --coverage-text --coverage-xml=.build/coverage/coverage-xml --log-junit=.build/coverage/phpunit.junit.xml"
 
       - name: "Upload coverage to Codecov"
         uses: "codecov/codecov-action@v3.1.1"

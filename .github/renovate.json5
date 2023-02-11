@@ -1,39 +1,77 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base",
-    ":disableDependencyDashboard",
-    ":preserveSemverRanges",
-    ":label(dependencies)",
-    ":assignee(mimmi20)",
-    ":rebaseStalePrs",
-    ":semanticCommitsDisabled",
-    ":separateMajorReleases",
-    ":combinePatchMinorReleases",
-    ":enableVulnerabilityAlerts",
-    ":timezone(UTC)",
-    ":gitSignOff",
-    "group:allNonMajor"
+
+  "extends": ["github>whitesource/merge-confidence:beta"],
+
+  "enabled": true,
+  "assignees": [
+    "mimmi20"
   ],
+  "automerge": false,
+  "commitBody": "Signed-off-by: {{{gitAuthor}}}",
   "commitBodyTable": true,
+  "dependencyDashboard": false,
   "enabledManagers": ["composer", "github-actions", "npm"],
-  "lockFileMaintenance": {"enabled": true, "extends": ["schedule:daily"]},
+  "ignoreUnstable": true,
+  "labels": [
+    "dependencies"
+  ],
+  "lockFileMaintenance": {
+    "enabled": false
+  },
   "platformAutomerge": false,
+  "prBodyColumns": [
+    "Package",
+    "Change",
+    "Type",
+    "Update"
+  ],
+  "prBodyDefinitions": {
+    "Package": "`{{{depName}}}`",
+    "Type": "{{{depType}}}",
+    "Update": "{{{updateType}}}",
+    "Change": "[{{#if displayFrom}}`{{{displayFrom}}}` -> {{else}}{{#if currentValue}}`{{{currentValue}}}` -> {{/if}}{{/if}}{{#if displayTo}}`{{{displayTo}}}`{{else}}`{{{newValue}}}`{{/if}}]({{#if depName}}https://renovatebot.com/diffs/npm/{{replace '/' '%2f' depName}}/{{{currentVersion}}}/{{{newVersion}}}{{/if}})"
+  },
+  "prCreation": "immediate",
   "rangeStrategy": "bump",
+  "rebaseWhen": "behind-base-branch",
+  "reviewers": [
+    "mimmi20"
+  ],
   "rollbackPrs": true,
   "schedule": ["before 3am"],
-  "updateLockFiles": true,
+  "semanticCommits": "disabled",
+  "separateMajorMinor": true,
+  "separateMinorPatch": false,
+  "timezone": "UTC",
+  "updateLockFiles": false,
+  "updateNotScheduled": false,
   "packageRules": [
-    {"matchPackagePatterns": ["^mimmi20/"], "groupSlug": "mimmi20", "groupName": "mimmi20 packages"},
     {
+      "groupName": "all non-major dependencies",
+      "groupSlug": "all-minor-patch",
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    },
+    {
+      "groupName": "mimmi20 packages",
+      "groupSlug": "mimmi20",
+      "matchPackagePatterns": ["^mimmi20/"]
+    },
+    {
+      "groupName": "PHP",
       "matchPackageNames": ["php"],
       "allowedVersions": "^8.1",
-      "extends": [":automergeDisabled", ":automergePr"],
       "ignoreUnstable": false,
-      "groupName": "PHP"
+      "rangeStrategy": "widen"
     }
   ],
   "vulnerabilityAlerts": {
-    "extends": [":automergeDisabled", ":automergePr"]
+    "enabled": true
   }
 }

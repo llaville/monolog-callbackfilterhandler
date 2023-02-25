@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/monolog-callbackfilterhandler package.
  *
- * Copyright (c) 2022, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2022-2023, Thomas Mueller <mimmi20@live.de>
  * Copyright (c) 2015-2021, Laurent Laville <pear@laurent-laville.org>
  *
  * For the full copyright and license information, please view the LICENSE
@@ -41,17 +41,18 @@ final class CallbackFilterHandler extends AbstractHandler implements Processable
     /**
      * Filters Closure to restrict log records.
      *
-     * @var Closure[]
-     * @phpstan-var array<int|string, (Closure(LogRecord, int|string|Level): bool)>
+     * @var array<Closure>
+     * @phpstan-var array<int|string, (Closure(LogRecord, Level): bool)>
      */
     protected array $filters;
 
     /**
      * @param Closure|HandlerInterface $handler handler or factory Closure($record, $this)
-     * @param Closure[]                $filters A list of filters to apply
+     * @param array<Closure>           $filters A list of filters to apply
      * @param int|Level|string         $level   The minimum logging level at which this handler will be triggered
      * @param bool                     $bubble  Whether the messages that are handled can bubble up the stack or not
      * @phpstan-param (Closure(LogRecord|null, HandlerInterface): HandlerInterface)|HandlerInterface $handler
+     * @phpstan-param array<int|string, (Closure(LogRecord, Level): bool)> $filters
      * @phpstan-param value-of<Level::VALUES>|value-of<Level::NAMES>|Level|LogLevel::* $level
      *
      * @throws RuntimeException
@@ -113,7 +114,7 @@ final class CallbackFilterHandler extends AbstractHandler implements Processable
     }
 
     /**
-     * @param LogRecord[] $records
+     * @param array<LogRecord> $records
      *
      * @throws RuntimeException
      */
@@ -144,8 +145,9 @@ final class CallbackFilterHandler extends AbstractHandler implements Processable
      *
      * @throws RuntimeException
      */
-    public function getHandler(LogRecord | null $record = null): HandlerInterface
-    {
+    public function getHandler(
+        LogRecord | null $record = null,
+    ): HandlerInterface {
         // The same logic as in FingersCrossedHandler
 
         if (!$this->handler instanceof HandlerInterface) {
@@ -168,7 +170,7 @@ final class CallbackFilterHandler extends AbstractHandler implements Processable
 
         $handler = $this->getHandler();
 
-        if (!($handler instanceof ResettableInterface)) {
+        if (!$handler instanceof ResettableInterface) {
             return;
         }
 

@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/monolog-callbackfilterhandler package.
  *
- * Copyright (c) 2022, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2022-2023, Thomas Mueller <mimmi20@live.de>
  * Copyright (c) 2015-2021, Laurent Laville <pear@laurent-laville.org>
  *
  * For the full copyright and license information, please view the LICENSE
@@ -101,8 +101,10 @@ final class TestHandler extends BaseTestHandler
      *
      * @throws void
      */
-    public function hasOnlyRecordsThatContains(string $message, Level $level): bool
-    {
+    public function hasOnlyRecordsThatContains(
+        string $message,
+        Level $level,
+    ): bool {
         $levels = array_keys($this->recordsByLevel);
 
         if (1 !== count($levels)) {

@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/monolog-callbackfilterhandler package.
  *
- * Copyright (c) 2022, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2022-2023, Thomas Mueller <mimmi20@live.de>
  * Copyright (c) 2015-2021, Laurent Laville <pear@laurent-laville.org>
  *
  * For the full copyright and license information, please view the LICENSE
@@ -32,7 +32,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @see CallbackFilterHandlerTest::testHandleProcessOnlyNeededLevels()
      * @see CallbackFilterHandlerTest::testHandleProcessAllMatchingRules()
      *
-     * @return LogRecord[][]
+     * @return array<array<LogRecord>>
      *
      * @throws InvalidArgumentException
      */
@@ -54,7 +54,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      *
      * @see CallbackFilterHandlerTest::testHandleRespectsBubble()
      *
-     * @return LogRecord[][]
+     * @return array<array<LogRecord>>
      *
      * @throws InvalidArgumentException
      */
@@ -72,8 +72,12 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      *
      * @throws InvalidArgumentException
      */
-    protected function getRecord(int | string | Level $level = Level::Warning, string $message = 'test', array $context = [], string $channel = 'test'): LogRecord
-    {
+    protected function getRecord(
+        int | string | Level $level = Level::Warning,
+        string $message = 'test',
+        array $context = [],
+        string $channel = 'test',
+    ): LogRecord {
         return new LogRecord(
             datetime: new DateTimeImmutable('now'),
             channel: $channel,
@@ -85,7 +89,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return LogRecord[]
+     * @return array<LogRecord>
      *
      * @throws InvalidArgumentException
      */

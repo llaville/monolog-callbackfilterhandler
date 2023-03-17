@@ -9,10 +9,15 @@ jobs:
   cleanup:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
-        uses: actions/checkout@v3
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+        with:
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
+          lfs: false
+          persist-credentials: false
 
-      - name: Cleanup
+      - name: "Cleanup"
         run: |
           gh extension install actions/gh-actions-cache
 

@@ -36,14 +36,14 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      *
      * @throws InvalidArgumentException
      */
-    public function provideSuiteRecords(): array
+    public static function provideSuiteRecords(): array
     {
         $dataset = [];
 
         foreach (Level::VALUES as $levelCode) {
             $level = Level::fromValue($levelCode);
 
-            $dataset[] = [$this->getRecord($level, sprintf('sample of %s message', $level->getName()))];
+            $dataset[] = [self::getRecord($level, sprintf('sample of %s message', $level->getName()))];
         }
 
         return $dataset;
@@ -58,11 +58,11 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      *
      * @throws InvalidArgumentException
      */
-    public function provideSuiteBubbleRecords(): array
+    public static function provideSuiteBubbleRecords(): array
     {
         return [
-            [$this->getRecord(Level::Notice)],
-            [$this->getRecord()],
+            [self::getRecord(Level::Notice)],
+            [self::getRecord()],
         ];
     }
 
@@ -72,7 +72,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      *
      * @throws InvalidArgumentException
      */
-    protected function getRecord(
+    protected static function getRecord(
         int | string | Level $level = Level::Warning,
         string $message = 'test',
         array $context = [],

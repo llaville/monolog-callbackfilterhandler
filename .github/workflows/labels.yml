@@ -14,10 +14,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: "actions/checkout@v3"
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
         with:
           # Disabling shallow clone is recommended for improving relevancy of reporting
           fetch-depth: 0
+          lfs: false
+          persist-credentials: false
+
       - uses: "micnncim/action-label-syncer@v1.3.0"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

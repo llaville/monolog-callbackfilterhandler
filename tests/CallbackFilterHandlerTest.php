@@ -21,6 +21,7 @@ use Monolog\Logger;
 use Monolog\LogRecord;
 use Monolog\Processor\ProcessorInterface;
 use Monolog\Processor\UidProcessor;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Exception;
 use Psr\Log\InvalidArgumentException;
 use Psr\Log\LogLevel;
@@ -39,9 +40,8 @@ final class CallbackFilterHandlerTest extends TestCase
      *
      * @throws Exception
      * @throws RuntimeException
-     *
-     * @dataProvider provideSuiteRecords
      */
+    #[DataProvider('provideSuiteRecords')]
     public function testIsHandling(LogRecord $record): void
     {
         $filters = [];
@@ -70,9 +70,8 @@ final class CallbackFilterHandlerTest extends TestCase
      *
      * @throws Exception
      * @throws RuntimeException
-     *
-     * @dataProvider provideSuiteRecords
      */
+    #[DataProvider('provideSuiteRecords')]
     public function testIsHandlingLevel(LogRecord $record): void
     {
         $filters = [];
@@ -108,9 +107,8 @@ final class CallbackFilterHandlerTest extends TestCase
      * @throws Exception
      * @throws RuntimeException
      * @throws InvalidArgumentException
-     *
-     * @dataProvider provideSuiteRecords
      */
+    #[DataProvider('provideSuiteRecords')]
     public function testIsHandlingLevelWithLoglevel(LogRecord $record): void
     {
         $filters = [];
@@ -144,9 +142,8 @@ final class CallbackFilterHandlerTest extends TestCase
      *
      * @throws Exception
      * @throws RuntimeException
-     *
-     * @dataProvider provideSuiteRecords
      */
+    #[DataProvider('provideSuiteRecords')]
     public function testIsHandlingLevelAndCallback(LogRecord $record): void
     {
         $filters = [
@@ -180,9 +177,8 @@ final class CallbackFilterHandlerTest extends TestCase
      *
      * @throws Exception
      * @throws RuntimeException
-     *
-     * @dataProvider provideSuiteRecords
      */
+    #[DataProvider('provideSuiteRecords')]
     public function testIsHandlingLevelAndCallbackWithLoglevel(
         LogRecord $record,
     ): void {
@@ -217,9 +213,8 @@ final class CallbackFilterHandlerTest extends TestCase
      *
      * @throws Exception
      * @throws RuntimeException
-     *
-     * @dataProvider provideSuiteRecords
      */
+    #[DataProvider('provideSuiteRecords')]
     public function testHandleProcessOnlyNeededLevels(LogRecord $record): void
     {
         $filters = [
@@ -246,9 +241,8 @@ final class CallbackFilterHandlerTest extends TestCase
      *
      * @throws Exception
      * @throws RuntimeException
-     *
-     * @dataProvider provideSuiteRecords
      */
+    #[DataProvider('provideSuiteRecords')]
     public function testHandleProcessAllMatchingRules(LogRecord $record): void
     {
         $filters = [
@@ -367,9 +361,8 @@ final class CallbackFilterHandlerTest extends TestCase
      *
      * @throws Exception
      * @throws RuntimeException
-     *
-     * @dataProvider provideSuiteBubbleRecords
      */
+    #[DataProvider('provideSuiteBubbleRecords')]
     public function testHandleRespectsBubble(LogRecord $record): void
     {
         $filters = [
@@ -397,9 +390,8 @@ final class CallbackFilterHandlerTest extends TestCase
      *
      * @throws Exception
      * @throws RuntimeException
-     *
-     * @dataProvider provideSuiteBubbleRecords
      */
+    #[DataProvider('provideSuiteBubbleRecords')]
     public function testHandleRespectsBubbleWithLoglevel(
         LogRecord $record,
     ): void {

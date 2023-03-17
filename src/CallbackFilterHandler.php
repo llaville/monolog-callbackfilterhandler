@@ -18,6 +18,7 @@ declare(strict_types = 1);
 namespace Mimmi20\Monolog\Handler;
 
 use Closure;
+use JsonException;
 use Monolog\Handler\AbstractHandler;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\ProcessableHandlerInterface;
@@ -30,6 +31,8 @@ use RuntimeException;
 
 use function count;
 use function json_encode;
+
+use const JSON_THROW_ON_ERROR;
 
 /**
  * Monolog handler wrapper that filters records based on a list of callback functions.
@@ -69,9 +72,17 @@ final class CallbackFilterHandler extends AbstractHandler implements Processable
 
         foreach ($filters as $filter) {
             if (!$filter instanceof Closure) {
-                throw new RuntimeException(
-                    'The given filter (' . json_encode($filter) . ') is not a Closure',
-                );
+                try {
+                    throw new RuntimeException(
+                        'The given filter (' . json_encode($filter, JSON_THROW_ON_ERROR) . ') is not a Closure',
+                    );
+                } catch (JsonException $e) {
+                    throw new RuntimeException(
+                        'The given filter is not a Closure',
+                        0,
+                        $e,
+                    );
+                }
             }
 
             $this->filters[] = $filter;

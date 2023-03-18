@@ -7,7 +7,7 @@
   "assignees": [
     "mimmi20"
   ],
-  "automerge": false,
+  "automerge": true,
   "commitBody": "Signed-off-by: {{{gitAuthor}}}",
   "commitBodyTable": true,
   "dependencyDashboard": false,
@@ -19,7 +19,7 @@
   "lockFileMaintenance": {
     "enabled": false
   },
-  "platformAutomerge": false,
+  "platformAutomerge": true,
   "prBodyColumns": [
     "Package",
     "Change",
@@ -49,7 +49,7 @@
   "packageRules": [
     {
       "groupName": "all non-major dependencies",
-      "groupSlug": "all-minor-patch",
+      "groupSlug": "all-minor-patch-dependencies",
       "matchPackagePatterns": [
         "*"
       ],
@@ -57,11 +57,6 @@
         "minor",
         "patch"
       ]
-    },
-    {
-      "groupName": "mimmi20 packages",
-      "groupSlug": "mimmi20",
-      "matchPackagePatterns": ["^mimmi20/"]
     },
     {
       "groupName": "PHP",

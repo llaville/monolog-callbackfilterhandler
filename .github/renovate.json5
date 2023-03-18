@@ -7,7 +7,7 @@
   "assignees": [
     "mimmi20"
   ],
-  "automerge": false,
+  "automerge": true,
   "commitBody": "Signed-off-by: {{{gitAuthor}}}",
   "commitBodyTable": true,
   "dependencyDashboard": false,

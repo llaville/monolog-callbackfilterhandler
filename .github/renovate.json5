@@ -7,7 +7,7 @@
   "assignees": [
     "mimmi20"
   ],
-  "automerge": true,
+  "automerge": false,
   "commitBody": "Signed-off-by: {{{gitAuthor}}}",
   "commitBodyTable": true,
   "dependencyDashboard": false,
@@ -19,7 +19,7 @@
   "lockFileMaintenance": {
     "enabled": false
   },
-  "platformAutomerge": true,
+  "platformAutomerge": false,
   "prBodyColumns": [
     "Package",
     "Change",

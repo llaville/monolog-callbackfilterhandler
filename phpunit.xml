@@ -2,7 +2,7 @@
 
 <phpunit
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd"
     backupGlobals="false"
     backupStaticProperties="false"
     beStrictAboutChangesToGlobalState="true"
@@ -32,6 +32,12 @@
         <env name="COLUMNS" value="100" force="true"/>
     </php>
 
+    <source>
+        <include>
+            <directory suffix=".php">src/</directory>
+        </include>
+    </source>
+
     <testsuites>
         <testsuite name="monolog-callbackfilterhandler Test Suite">
             <directory>tests/</directory>
@@ -39,9 +45,6 @@
     </testsuites>
 
     <coverage includeUncoveredFiles="true">
-        <include>
-            <directory suffix=".php">src/</directory>
-        </include>
         <report>
             <clover outputFile=".reports/clover.xml"/>
             <html outputDirectory=".reports/report/" lowUpperBound="50" highLowerBound="80"/>

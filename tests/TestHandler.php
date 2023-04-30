@@ -101,13 +101,11 @@ final class TestHandler extends BaseTestHandler
      *
      * @throws void
      */
-    public function hasOnlyRecordsThatContains(
-        string $message,
-        Level $level,
-    ): bool {
+    public function hasOnlyRecordsThatContains(string $message, Level $level): bool
+    {
         $levels = array_keys($this->recordsByLevel);
 
-        if (1 !== count($levels)) {
+        if (count($levels) !== 1) {
             return false;
         }
 

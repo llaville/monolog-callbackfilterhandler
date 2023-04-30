@@ -147,7 +147,11 @@ final class CallbackFilterHandlerTest extends TestCase
     public function testIsHandlingLevelAndCallback(LogRecord $record): void
     {
         $filters = [
-            static fn (LogRecord $record) => in_array($record->level->value, [Level::Info->value, Level::Notice->value], true),
+            static fn (LogRecord $record) => in_array(
+                $record->level->value,
+                [Level::Info->value, Level::Notice->value],
+                true,
+            ),
         ];
         $testlvl = Level::Info;
 
@@ -179,11 +183,14 @@ final class CallbackFilterHandlerTest extends TestCase
      * @throws RuntimeException
      */
     #[DataProvider('provideSuiteRecords')]
-    public function testIsHandlingLevelAndCallbackWithLoglevel(
-        LogRecord $record,
-    ): void {
+    public function testIsHandlingLevelAndCallbackWithLoglevel(LogRecord $record): void
+    {
         $filters = [
-            static fn (LogRecord $record) => in_array($record->level->value, [Level::Info->value, Level::Notice->value], true),
+            static fn (LogRecord $record) => in_array(
+                $record->level->value,
+                [Level::Info->value, Level::Notice->value],
+                true,
+            ),
         ];
         $testlvl = LogLevel::INFO;
 
@@ -218,7 +225,11 @@ final class CallbackFilterHandlerTest extends TestCase
     public function testHandleProcessOnlyNeededLevels(LogRecord $record): void
     {
         $filters = [
-            static fn (LogRecord $record) => in_array($record->level->value, [Level::Info->value, Level::Notice->value], true),
+            static fn (LogRecord $record) => in_array(
+                $record->level->value,
+                [Level::Info->value, Level::Notice->value],
+                true,
+            ),
         ];
 
         $test    = new TestHandler();
@@ -247,7 +258,7 @@ final class CallbackFilterHandlerTest extends TestCase
     {
         $filters = [
             static fn (LogRecord $record) => $record->level->value === Level::Notice->value,
-            static fn (LogRecord $record) => 1 === preg_match('/^sample of/', $record->message),
+            static fn (LogRecord $record) => preg_match('/^sample of/', $record->message) === 1,
         ];
 
         $test = new TestHandler();
@@ -273,7 +284,7 @@ final class CallbackFilterHandlerTest extends TestCase
     {
         $filters = [
             static fn (LogRecord $record) => $record->level->value === Level::Info->value,
-            static fn (LogRecord $record) => 1 === preg_match('/information/', $record->message),
+            static fn (LogRecord $record) => preg_match('/information/', $record->message) === 1,
         ];
 
         $records = $this->getMultipleRecords();
@@ -282,7 +293,9 @@ final class CallbackFilterHandlerTest extends TestCase
         $handler = new CallbackFilterHandler($test, $filters);
         $handler->handleBatch($records);
 
-        self::assertTrue($test->hasOnlyRecordsThatContains('information', Level::Info));
+        self::assertTrue(
+            $test->hasOnlyRecordsThatContains('information', Level::Info),
+        );
     }
 
     /**
@@ -296,7 +309,7 @@ final class CallbackFilterHandlerTest extends TestCase
     {
         $filters = [
             static fn (LogRecord $record) => $record->level->value === Level::Info->value,
-            static fn (LogRecord $record) => false === preg_match('/information/', $record->message),
+            static fn (LogRecord $record) => preg_match('/information/', $record->message) === false,
         ];
 
         $records = $this->getMultipleRecords();
@@ -316,7 +329,11 @@ final class CallbackFilterHandlerTest extends TestCase
     public function testHandleUsesProcessors(): void
     {
         $filters = [
-            static fn (LogRecord $record) => in_array($record->level->value, [Level::Debug->value, Level::Warning->value], true),
+            static fn (LogRecord $record) => in_array(
+                $record->level->value,
+                [Level::Debug->value, Level::Warning->value],
+                true,
+            ),
         ];
 
         $test = new TestHandler();
@@ -366,7 +383,11 @@ final class CallbackFilterHandlerTest extends TestCase
     public function testHandleRespectsBubble(LogRecord $record): void
     {
         $filters = [
-            static fn (LogRecord $record) => in_array($record->level->value, [Level::Info->value, Level::Notice->value], true),
+            static fn (LogRecord $record) => in_array(
+                $record->level->value,
+                [Level::Info->value, Level::Notice->value],
+                true,
+            ),
         ];
         $testlvl = Level::Info;
 
@@ -375,7 +396,7 @@ final class CallbackFilterHandlerTest extends TestCase
         foreach ([false, true] as $bubble) {
             $handler = new CallbackFilterHandler($test, $filters, $testlvl, $bubble);
 
-            if ($record->level->value === Level::Notice->value && false === $bubble) {
+            if ($record->level->value === Level::Notice->value && $bubble === false) {
                 self::assertTrue($handler->handle($record));
             } else {
                 self::assertFalse($handler->handle($record));
@@ -392,11 +413,14 @@ final class CallbackFilterHandlerTest extends TestCase
      * @throws RuntimeException
      */
     #[DataProvider('provideSuiteBubbleRecords')]
-    public function testHandleRespectsBubbleWithLoglevel(
-        LogRecord $record,
-    ): void {
+    public function testHandleRespectsBubbleWithLoglevel(LogRecord $record): void
+    {
         $filters = [
-            static fn (LogRecord $record) => in_array($record->level->value, [Level::Info->value, Level::Notice->value], true),
+            static fn (LogRecord $record) => in_array(
+                $record->level->value,
+                [Level::Info->value, Level::Notice->value],
+                true,
+            ),
         ];
         $testlvl = LogLevel::INFO;
         $test    = new TestHandler();
@@ -404,7 +428,7 @@ final class CallbackFilterHandlerTest extends TestCase
         foreach ([false, true] as $bubble) {
             $handler = new CallbackFilterHandler($test, $filters, $testlvl, $bubble);
 
-            if ($record->level->value === Level::Notice->value && false === $bubble) {
+            if ($record->level->value === Level::Notice->value && $bubble === false) {
                 self::assertTrue($handler->handle($record));
             } else {
                 self::assertFalse($handler->handle($record));
@@ -558,7 +582,11 @@ final class CallbackFilterHandlerTest extends TestCase
     public function testReset(): void
     {
         $filters = [
-            static fn (LogRecord $record) => in_array($record->level->value, [Level::Debug->value, Level::Warning->value], true),
+            static fn (LogRecord $record) => in_array(
+                $record->level->value,
+                [Level::Debug->value, Level::Warning->value],
+                true,
+            ),
         ];
 
         $test = $this->getMockBuilder(GroupHandler::class)
@@ -586,7 +614,11 @@ final class CallbackFilterHandlerTest extends TestCase
     public function testReset2(): void
     {
         $filters = [
-            static fn (LogRecord $record) => in_array($record->level->value, [Level::Debug->value, Level::Warning->value], true),
+            static fn (LogRecord $record) => in_array(
+                $record->level->value,
+                [Level::Debug->value, Level::Warning->value],
+                true,
+            ),
         ];
 
         $test = $this->getMockBuilder(BaseTestHandler::class)

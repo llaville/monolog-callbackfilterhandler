@@ -31,6 +31,7 @@ use RuntimeException;
 
 use function count;
 use function json_encode;
+use function sprintf;
 
 use const JSON_THROW_ON_ERROR;
 
@@ -74,14 +75,13 @@ final class CallbackFilterHandler extends AbstractHandler implements Processable
             if (!$filter instanceof Closure) {
                 try {
                     throw new RuntimeException(
-                        'The given filter (' . json_encode($filter, JSON_THROW_ON_ERROR) . ') is not a Closure',
+                        sprintf(
+                            'The given filter (%s) is not a Closure',
+                            json_encode($filter, JSON_THROW_ON_ERROR),
+                        ),
                     );
                 } catch (JsonException $e) {
-                    throw new RuntimeException(
-                        'The given filter is not a Closure',
-                        0,
-                        $e,
-                    );
+                    throw new RuntimeException('The given filter is not a Closure', 0, $e);
                 }
             }
 
@@ -121,7 +121,7 @@ final class CallbackFilterHandler extends AbstractHandler implements Processable
 
         $this->getHandler($record)->handle($record);
 
-        return false === $this->bubble;
+        return $this->bubble === false;
     }
 
     /**
@@ -156,9 +156,8 @@ final class CallbackFilterHandler extends AbstractHandler implements Processable
      *
      * @throws RuntimeException
      */
-    public function getHandler(
-        LogRecord | null $record = null,
-    ): HandlerInterface {
+    public function getHandler(LogRecord | null $record = null): HandlerInterface
+    {
         // The same logic as in FingersCrossedHandler
 
         if (!$this->handler instanceof HandlerInterface) {

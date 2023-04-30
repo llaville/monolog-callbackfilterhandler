@@ -19,7 +19,7 @@ jobs:
 
     uses: "mimmi20/template/.github/workflows/ci.yml@master"
     with:
-      extensions: "dom, iconv, intl, mbstring, simplexml, tokenizer, xml, xmlwriter"
+      extensions: "ctype, dom, iconv, intl, mbstring, simplexml, tokenizer, xml, xmlwriter"
       ini-values: "opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0"
       composer-options: "--optimize-autoloader --prefer-dist --prefer-stable -v"
       composer-outdated-option: ""

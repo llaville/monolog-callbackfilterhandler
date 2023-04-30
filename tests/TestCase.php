@@ -43,7 +43,12 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         foreach (Level::VALUES as $levelCode) {
             $level = Level::fromValue($levelCode);
 
-            $dataset[] = [self::getRecord($level, sprintf('sample of %s message', $level->getName()))];
+            $dataset[] = [
+                self::getRecord(
+                    $level,
+                    sprintf('sample of %s message', $level->getName()),
+                ),
+            ];
         }
 
         return $dataset;

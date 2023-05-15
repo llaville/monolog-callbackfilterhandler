@@ -17,16 +17,17 @@ jobs:
   ci:
     name: "Run CI"
 
-    uses: "mimmi20/template/.github/workflows/ci.yml@master"
+    uses: "mimmi20/mimmi20/.github/workflows/ci.yml@main"
     with:
       extensions: "ctype, dom, iconv, intl, mbstring, simplexml, tokenizer, xml, xmlwriter"
       ini-values: "opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0"
       composer-options: "--optimize-autoloader --prefer-dist --prefer-stable -v"
       composer-outdated-option: ""
-      skip-phpstan: true
+      skip-phpstan: false
       skip-phplint: false
       skip-rector: false
       skip-phpmd: false
+      skip-psalm: false
     secrets:
       envPAT: "${{ secrets.GITHUB_TOKEN }}"
 

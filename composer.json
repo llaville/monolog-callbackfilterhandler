@@ -33,7 +33,7 @@
     "ext-xml": "*",
     "ext-xmlwriter": "*",
     "infection/infection": "^0.26.21",
-    "mimmi20/coding-standard": "^5.0.0",
+    "mimmi20/coding-standard": "^5.0.1",
     "nikic/php-parser": "^v4.15.4",
     "phpstan/extension-installer": "^1.3.0",
     "phpstan/phpstan": "^1.10.15",

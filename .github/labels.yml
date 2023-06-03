@@ -33,8 +33,8 @@
   name: "stale"
   description: "no activity"
 - color: b60205
-  name: "BC Break"
-  description: ""
+  name: "bc break"
+  description: "BC Break"
 - color: f4e99c
   name: "maintenance"
   description: "Maintenance"

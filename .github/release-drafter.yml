@@ -2,40 +2,76 @@ template: |
   ## What’s Changed
 
   $CHANGES
+
+  ## 👨🏼‍💻 Contributors
+
+  $CONTRIBUTORS
+
+change-template: "- $TITLE by @$AUTHOR (#$NUMBER)"
+change-title-escapes: "\<*_&#@`" # You can add # and @ to disable mentions, and add ` to disable code blocks.
+no-changes-template: "- No changes"
+
 exclude-labels:
-  - duplicate
-  - question
-  - invalid
-  - wontfix
+  - "duplicate"
+  - "question"
+  - "invalid"
+  - "wontfix"
+
+version-resolver:
+  major:
+    labels:
+      - "bc break"
+      - "removed"
+  minor:
+    labels:
+      - "deprecated"
+      - "security"
+  patch:
+    labels:
+      - "bug"
+      - "dependencies"
+      - "enhancement"
+      - "maintenance"
+      - "documentation"
+  default: patch
+
+autolabeler:
+  - label: "documentation"
+    files:
+      - "*.md"
+
 categories:
-  - title: '**💥 Breaking:**'
+  - title: "**💥 Breaking:**"
     labels:
-      - 'BC Break'
-  - title: '**🍰 Enhancements:**'
+      - "bc break"
+  - title: "**🍰 Enhancements:**"
     labels:
-      - 'enhancement'
-  - title: '**🐞 Bugs:**'
+      - "enhancement"
+  - title: "**🐞 Bugs:**"
     labels:
-      - 'bug'
-  - title: '**💀 Deprecated:**'
+      - "bug"
+  - title: "**💀 Deprecated:**"
     labels:
-      - 'deprecated'
-  - title: '**🗑 Removed:**'
+      - "deprecated"
+  - title: "**🗑 Removed:**"
     labels:
-      - 'removed'
-  - title: '**🛡 Security:**'
+      - "removed"
+  - title: "**🛡 Security:**"
     labels:
-      - 'security'
-  - title: '**🕸 Dependencies:**'
+      - "security"
+  - title: "**🕸 Dependencies:**"
     labels:
-      - 'dependencies'
-  - title: '**🧹 Maintenance:**'
+      - "dependencies"
+  - title: "**🧹 Maintenance:**"
     labels:
-      - 'maintenance'
+      - "maintenance"
+  - title: "**📦 Documentation:**"
+    labels:
+      - "documentation"
   # other Labels to mimmi20/monolog-callbackfilterhandler
-  #- title: '**📦 new Useragents:**'
+  #- title: "**📦 new Useragents:**"
   #  labels:
-  #    - 'new useragents'
+  #    - "new useragents"
 
 commitish: master
 target_commitish: master

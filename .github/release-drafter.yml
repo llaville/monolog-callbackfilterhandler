@@ -65,6 +65,9 @@ categories:
   - title: "**🧹 Maintenance:**"
     labels:
       - "maintenance"
+  - title: "**📦 Documentation:**"
+    labels:
+      - "documentation"
   # other Labels to mimmi20/monolog-callbackfilterhandler
   #- title: "**📦 new Useragents:**"
   #  labels:

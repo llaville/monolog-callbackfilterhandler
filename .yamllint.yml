@@ -18,10 +18,6 @@ rules:
   empty-lines:
     max: 1
 
-  line-length:
-    max: 120
-    allow-non-breakable-words: true
-    allow-non-breakable-inline-mappings: true
-    level: warning
+  line-length: disable
 
   new-line-at-end-of-file: enable

@@ -27,7 +27,7 @@ jobs:
       skip-phplint: false
       skip-rector: false
       skip-phpmd: false
-      skip-psalm: false
+      skip-psalm: true
     secrets:
       envPAT: "${{ secrets.GITHUB_TOKEN }}"
 

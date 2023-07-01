@@ -3,7 +3,7 @@ name: Lock closed issue
 on:
   issues:
     types:
-      - closed
+      - "closed"
 
 jobs:
   lock:

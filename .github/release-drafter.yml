@@ -10,6 +10,9 @@ template: |
 change-template: "- $TITLE by @$AUTHOR (#$NUMBER)"
 change-title-escapes: '\<*_&#@`' # You can add # and @ to disable mentions, and add ` to disable code blocks.
 no-changes-template: "- No changes"
+name-template: "$RESOLVED_VERSION"
+tag-template: "$RESOLVED_VERSION"
+version-template: "$MAJOR.$MINOR.$PATCH"
 
 exclude-labels:
   - "duplicate"
@@ -22,10 +25,12 @@ version-resolver:
     labels:
       - "bc break"
       - "removed"
+      - "major"
   minor:
     labels:
       - "deprecated"
       - "security"
+      - "minor"
   patch:
     labels:
       - "bug"
@@ -33,6 +38,7 @@ version-resolver:
       - "enhancement"
       - "maintenance"
       - "documentation"
+      - "patch"
   default: patch
 
 autolabeler:

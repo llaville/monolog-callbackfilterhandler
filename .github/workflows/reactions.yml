@@ -5,12 +5,12 @@ name: 'Reaction Comments'
 on:
   issue_comment:
     types:
-      - created
-      - edited
+      - "created"
+      - "edited"
   pull_request_review_comment:
     types:
-      - created
-      - edited
+      - "created"
+      - "edited"
 
 permissions:
   actions: write

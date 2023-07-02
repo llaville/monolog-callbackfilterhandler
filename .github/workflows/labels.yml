@@ -5,11 +5,20 @@ name: "Sync labels in the declarative way"
 on:
   push:
     branches:
-      - master
+      - "master"
+    paths:
+      - ".github/labels.yml"
+      - ".github/workflows/labels.yml"
+
+permissions:
+  contents: read
 
 jobs:
   build:
     name: "Sync labels"
+
+    permissions:
+      issues: write
 
     runs-on: ubuntu-latest
 

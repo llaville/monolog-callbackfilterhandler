@@ -16,7 +16,6 @@ use Rector\DeadCode\Rector\If_\RemoveAlwaysTrueIfConditionRector;
 use Rector\DeadCode\Rector\If_\RemoveDeadInstanceOfRector;
 use Rector\DeadCode\Rector\StaticCall\RemoveParentCallWithoutParentRector;
 use Rector\Php71\Rector\FuncCall\CountOnNullRector;
-use Rector\Php80\Rector\FunctionLike\UnionTypesRector;
 use Rector\Php81\Rector\Array_\FirstClassCallableRector;
 use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
@@ -40,7 +39,6 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->skip(
         [
-            UnionTypesRector::class,
             NullToStrictStringFuncCallArgRector::class,
             RemoveDeadInstanceOfRector::class,
             FirstClassCallableRector::class,

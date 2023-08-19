@@ -1,10 +1,15 @@
+; file-version: 1.0
+
 # text files
 *                text=auto
 *.markdown       text eol=lf
 *.md             text eol=lf
 *.js             text eol=lf
+*.ts             text eol=lf
 *.css            text eol=lf
+*.scss           text eol=lf
 *.json           text eol=lf
+*.json5          text eol=lf
 *.lock           text eol=lf
 *.html           text eol=lf
 *.php            text eol=lf
@@ -41,5 +46,7 @@ phpstan.neon              export-ignore text eol=lf
 phpunit.xml               export-ignore text eol=lf
 psalm.xml                 export-ignore text eol=lf
 rector.php                export-ignore text eol=lf
+/test                     export-ignore
 /tests                    export-ignore
+/tools                    export-ignore
 /.github                  export-ignore

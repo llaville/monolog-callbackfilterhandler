@@ -1,4 +1,4 @@
- Copyright (c) 2022, Thomas Mueller <mimmi20@live.de>
+ Copyright (c) 2022-2023, Thomas Mueller <mimmi20@live.de>
  Copyright (c) 2015-2021, Laurent Laville <pear@laurent-laville.org>
 
  Credits to :

@@ -9,8 +9,8 @@ This library is a Fork of [llaville/monolog-callbackfilterhandler](https://githu
 ## Code Status
 
 [![codecov](https://codecov.io/gh/mimmi20/monolog-callbackfilterhandler/branch/master/graph/badge.svg)](https://codecov.io/gh/mimmi20/monolog-callbackfilterhandler)
-[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/mimmi20/monolog-callbackfilterhandler.svg)](http://isitmaintained.com/project/mimmi20/monolog-callbackfilterhandler "Average time to resolve an issue")
-[![Percentage of issues still open](http://isitmaintained.com/badge/open/mimmi20/monolog-callbackfilterhandler.svg)](http://isitmaintained.com/project/mimmi20/monolog-callbackfilterhandler "Percentage of issues still open")
+[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/mimmi20/monolog-callbackfilterhandler.svg)](https://isitmaintained.com/project/mimmi20/monolog-callbackfilterhandler "Average time to resolve an issue")
+[![Percentage of issues still open](https://isitmaintained.com/badge/open/mimmi20/monolog-callbackfilterhandler.svg)](https://isitmaintained.com/project/mimmi20/monolog-callbackfilterhandler "Percentage of issues still open")
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fmimmi20%2Fmonolog-callbackfilterhandler%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/mimmi20/monolog-callbackfilterhandler/master)
 
 ## Requirements
@@ -43,4 +43,6 @@ See [examples/basic.php](https://github.com/mimmi20/monolog-callbackfilterhandle
 
 ## License
 
-This handler is licensed under the BSD-3-clauses License - see the [LICENSE](https://github.com/mimmi20/monolog-callbackfilterhandler/blob/master/LICENSE) file for details
+This package is licensed using the MIT License.
+
+Please have a look at [`LICENSE.md`](LICENSE.md).

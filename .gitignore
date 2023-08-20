@@ -20,7 +20,13 @@ tests/temp/*.ini
 .php-cs-fixer.cache
 .phplint-cache
 .phpunit.result.cache
+.phpcs.cache
 infection-*.log
 rewrite*.php
 .reports/
-.phpcs.cache
+node_modules/
+.build/
+package-lock.json
+.reports
+*.bak
+*.txt

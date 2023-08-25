@@ -23,9 +23,9 @@ updates:
         # dependency name)
         patterns:
           - "*"
-        update-types:
-          - "minor"
-          - "patch"
+        # update-types:
+        #   - "minor"
+        #   - "patch"
         # exclude-patterns:
         #   - "gc_ruboconfig"
 
@@ -72,9 +72,9 @@ updates:
         # dependency name)
         patterns:
           - "*"
-        update-types:
-          - "minor"
-          - "patch"
+        # update-types:
+        #   - "minor"
+        #   - "patch"
         # exclude-patterns:
         #   - "gc_ruboconfig"
 

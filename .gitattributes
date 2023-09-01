@@ -46,6 +46,7 @@ phpstan.neon              export-ignore text eol=lf
 phpunit.xml               export-ignore text eol=lf
 psalm.xml                 export-ignore text eol=lf
 rector.php                export-ignore text eol=lf
+/cache                    export-ignore
 /test                     export-ignore
 /tests                    export-ignore
 /tools                    export-ignore
